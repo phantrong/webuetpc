@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Checkout Page - Ustora Demo</title>
+    <title>Trang Thanh Toán</title>
     
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
@@ -251,14 +251,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h3 id="order_review_heading">Your order</h3>
+                                <h3 id="order_review_heading">Hóa Đơn Của Bạn</h3>
 
                                 <div id="order_review" style="position: relative;">
                                     <table class="shop_table">
                                         <thead>
                                             <tr>
-                                                <th class="product-name">Product</th>
-                                                <th class="product-total">Total</th>
+                                                <th class="product-name">Danh Sách Sản Phẩm</th>
+                                                <th class="product-total">Tổng</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -307,13 +307,13 @@ foreach($_SESSION["cart"] as $index => $quan) {
                                         <tfoot>
 
                                             <tr class="cart-subtotal">
-                                                <th>Cart Subtotal</th>
+                                                <th>Tổng Giỏ Hàng</th>
                                                 <td><span class="amount"><?=number_format($tt)?> VNĐ</span>
                                                 </td>
                                             </tr>
 
                                             <tr class="shipping">
-                                                <th>Shipping and Handling</th>
+                                                <th>Phí Ship</th>
                                                 <td>
 
                                                     Free Shipping
@@ -323,7 +323,7 @@ foreach($_SESSION["cart"] as $index => $quan) {
 
 
                                             <tr class="order-total">
-                                                <th>Order Total</th>
+                                                <th>Tổng Hóa Đơn</th>
                                                 <td><strong><span class="amount"><?=number_format($tt)?> VNĐ</span></strong> </td>
                                             </tr>
 

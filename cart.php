@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cart Page - Ustora Demo</title>
+    <title>Giỏ Hàng</title>
     
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
@@ -77,7 +77,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-bit-title text-center">
-                        <h2>Shopping Cart</h2>
+                        <h2>Giỏ Hàng</h2>
                     </div>
                 </div>
             </div>
@@ -278,7 +278,7 @@ foreach($_SESSION["cart"] as $index => $quan) {
                                         </tr>
 
                                         <tr class="shipping">
-                                            <th>Shipping and Handling</th>
+                                            <th>Phí Ship</th>
                                             <td>Free Shipping</td>
                                         </tr>
 

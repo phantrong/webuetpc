@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ustora Demo</title>
+    <title>Mua bán Máy tính, Linh Kiện và Các Phụ kiện khác</title>
     
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
@@ -282,7 +282,7 @@ for($i=$id_pc; $i>=$id_pc-5; $i--) {
                 <div class="col-md-4">
                     <div class="single-product-widget">
                         <h2 class="product-wid-title">Máy Tính</h2>
-                        <a href="shop.php?action=1" class="wid-view-more">View All</a>
+                        <a href="shop.php?action=1" class="wid-view-more">Xem tất cả</a>
 <?php
 require_once('dbhelp.php');
 $sql1 = "SELECT max(id_pc) FROM kDAbiPc3dp.computer;";
@@ -315,7 +315,7 @@ for($i=$id_pc; $i>=$id_pc-30; $i-=15) {
                 <div class="col-md-4">
                     <div class="single-product-widget">
                         <h2 class="product-wid-title">Linh Kiện</h2>
-                        <a href="shop.php?action=10" class="wid-view-more">View All</a>
+                        <a href="shop.php?action=10" class="wid-view-more">Xem tất cả</a>
 <?php
 require_once('dbhelp.php');
 $sql1 = "SELECT max(id_com) FROM kDAbiPc3dp.components;";
@@ -348,7 +348,7 @@ for($i=$id_pc; $i>=$id_pc-30; $i-=15) {
                 <div class="col-md-4">
                     <div class="single-product-widget">
                         <h2 class="product-wid-title">Phụ Kiện Khác</h2>
-                        <a href="shop.php?action=20" class="wid-view-more">View All</a>
+                        <a href="shop.php?action=20" class="wid-view-more">Xem tất cả</a>
 <?php   
 require_once('dbhelp.php');
 $sql1 = "SELECT max(id_acc) FROM kDAbiPc3dp.accessories;";
