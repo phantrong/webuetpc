@@ -172,6 +172,7 @@
                         <h2 class="section-title">Sản Phẩm Mới Nhất</h2>
                         <div class="product-carousel">
 <?php
+// var_dump($pc);
 require_once('dbhelp.php');
 $sql1 = "SELECT max(id_pc) FROM kDAbiPc3dp.computer;";
 $row = executeSingleResult($sql1);
