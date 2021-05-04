@@ -1,4 +1,18 @@
-<?php session_start(); ?>
+<?php 
+    session_start(); 
+    // var_dump(isset($_SESSION['login']['admin'])); exit;
+    // var_dump($_SESSION['cart']);
+    // var_dump(($_POST));
+    // $name_cus = $phone_cus =$address_cus = $user_cus = $pass_cus = '';
+    if(!empty($_SESSION['login']['user'])) {
+        $id_cus = $_SESSION['login']['user']['id_cus'];
+        $name_cus = $_SESSION['login']['user']['name_cus'];
+        $phone_cus = $_SESSION['login']['user']['phone_cus'];
+        $address_cus = $_SESSION['login']['user']['address_cus'];
+        $user_cus = $_SESSION['login']['user']['user_cus'];
+        $pass_cus = $_SESSION['login']['user']['pass_cus'];
+    }
+?>
 
 <!DOCTYPE html>
 <!--
@@ -27,7 +41,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,6 +53,32 @@
     <![endif]-->
   </head>
   <body>
+  <div class="header-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="user-menu">
+                        <ul>
+<?php
+    if(!empty($_SESSION['login']['user'])) { ?>
+                            <li><a href="account.php"><i class="fa fa-user"></i><?=$user_cus?></a></li>
+                            <li><a href="login.php?action=logout"><i class="fa fa-user"></i>Đăng Xuất</a></li>
+<?php } elseif(!empty($_SESSION['login']['admin'])) { ?>
+                            <li><a href="account.php"><i class="fa fa-user"></i>ADMIN</a></li>
+                            <li><a href="login.php?action=logout"><i class="fa fa-user"></i>Đăng Xuất</a></li>
+<?php } else { ?>
+                            <li><a href="account.php"><i class="fa fa-user"></i>Tài Khoản</a></li>
+                            <li><a href="login.php"><i class="fa fa-user"></i>Đăng Nhập</a></li>
+<?php }
+?>
+                            <li><a href="checkout.php"><img src="img/money.png" style="max-height: 15px"></i> Thanh Toán</a></li>
+                            <li><a href="cart.php"><i class="fa fa-shopping-cart"></i></i>Giỏ Hàng</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End header area -->
 <?php
     require_once ('config.php');
     require_once ('dbhelp.php');
@@ -47,55 +89,53 @@
     $error = false;
     $success = false;
     if(isset($_GET['action'])) {
-        // var_dump($_GET['action']); exit;
-        if($_GET['action'] == 'save') {
-            $total_ord = $quantity_ord = 0;
-            if(!empty($_GET)) {
-                // var_dump($_GET); exit;
-                if(isset($_GET['total_ord'])) {
-                    $_SESSION["form"][0] = $_GET['total_ord'];
-                }
-                if(isset($_GET['quantity_ord'])) {
-                    $_SESSION["form"][1] = $_GET['quantity_ord'];
-                }
-            }
-        } elseif($_GET['action'] == 'submit') {
+        if($_GET['action'] == 'submit') {
+            // var_dump($_POST['save-click']);
             if (isset($_POST['save-click'])) {
-                $quantity_ord = (int)$_SESSION["form"][1];
-                $total_ord = (int)$_SESSION["form"][0];
+                // var_dump($tt); exit;
+                $quantity_ord = (int)$_SESSION["form"][-1];
+                $total_ord = (int)$_SESSION["form"][-2];
                 // var_dump($quantity_ord); exit;
-                if(empty($_POST['name_cus'])) {
-                    $error = "Bạn chưa nhập Tên!";
+                if(isset($_SESSION['login']['admin'])) {
+                    $error = "Bạn Đang Đăng Nhập Với Tư Cách Quản Trị Viên! Nên Không Thể Mua Hàng!";
                 }
-                elseif(empty($_POST['phone_cus'])) {
-                    $error = "Bạn chưa nhập Số Điện Thoại!";
-                }
-                elseif(empty($_POST['address_cus'])) {
-                    $error = "Bạn chưa nhập Địa Chỉ Giao Hàng!";
-                }elseif($quantity_ord == 0) {
-                    $error = "Bạn chưa mua Sản Phẩm nào cả!";
+                elseif (empty($_SESSION['login']['user']))  {
+                    $error = "Bạn Chưa Đăng Nhập. Vui Lòng Đăng Nhập!";
+                }elseif ($quantity_ord == 0) {
+                    $error = "Bạn Chưa Mua Sản Phẩm Nào!";
                 }
                 if ($error == false && !empty($quantity_ord)) {
-                    // var_dump($quantity_ord); exit;
-                    // var_dump($quantity_ord); exit;
                     $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
-                    $sql1 = "INSERT INTO kDAbiPc3dp.customer (name_cus, phone_cus, address_cus) VALUE ('".$_POST['name_cus']."', '".$_POST['phone_cus']."', '".$_POST['address_cus']."')";
-                     mysqli_query($conn, $sql1);
-                    $id_cus = $conn->insert_id;
-                    mysqli_close($conn);
-                    // var_dump($id_cus); exit;
-                    $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
-                    $sql2 = "INSERT INTO kDAbiPc3dp.order (date_ord, status_ord, comments, id_cus) VALUE (now(), 'Shipping', ' ',  '$id_cus')";
+                    $sql2 = "INSERT INTO web_maytinh.order (date_ord, status_ord, comments, id_cus) VALUE (now(), 'Shipping', ' ',  '$id_cus')";
                     mysqli_query($conn, $sql2);
                     $id_ord = $conn->insert_id;
                     mysqli_close($conn);
                     // var_dump($id_ord); exit;
-                    $id_product = time();
-                    $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
-                    $sql3 = "INSERT INTO kDAbiPc3dp.orderdetail (id_ord, id_product, quantity_ord, total_ord) VALUE ('$id_ord', '$id_product', '$quantity_ord', '$total_ord')";
-                    mysqli_query($conn, $sql3);
-                    mysqli_close($conn);
-                    $success = "Đặt hàng thành công";
+                    foreach($_SESSION['cart'] as $index => $quantity) {
+                        $total_pro = $_SESSION['form']['price'][$index] * $quantity;
+                        if ($index <=100) {
+                            $sql4 = "SELECT quantity_pc FROM computer WHERE id_pc = $index;";
+                            $rs = executeSingleResult($sql4);
+                            $quan_pro = $rs['quantity_pc'] - $quantity;
+                            $sqlz = "UPDATE computer SET quantity_pc = $quan_pro WHERE id_pc = $index;";
+                            execute($sqlz);
+                        }elseif ($index >100 && $index < 200) {
+                            $sql4 = "SELECT quantity_acc FROM accessories WHERE id_acc = $index;";
+                            $rs = executeSingleResult($sql4);
+                            $quan_pro = $rs['quantity_acc'] - $quantity;
+                            $sqlz = "UPDATE accessories SET quantity_acc = $quan_pro WHERE id_acc = $index;";
+                            execute($sqlz);
+                        }else {
+                            $sql4 = "SELECT quantity_com FROM components WHERE id_com = $index;";
+                            $rs = executeSingleResult($sql4);
+                            $quan_pro = $rs['quantity_com'] - $quantity;
+                            $sqlz = "UPDATE components SET quantity_com = $quan_pro WHERE id_com = $index;";
+                            execute($sqlz);
+                        }
+                        $sql3 = "INSERT INTO web_maytinh.orderdetail (id_ord, id_product, quantity_pro, total_pro) VALUE ('$id_ord', '$index', '$quantity', '$total_pro')";
+                        execute($sql3);
+                    }
+                    $success = "Đặt hàng thành công!";
                     unset($_SESSION['cart']);
                 }
             }
@@ -104,23 +144,23 @@
     // var_dump($_SESSION['cart']); exit;
 ?>
     <div class="site-branding-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="logo">
-                        <h1><a href="./"><img src="img/vertu.jpg"></a></h1>
+        <div class="container" style="width: 100%;">
+            <div class="row" style="width: 100%;">
+                <div class="col-sm-6" style="width: 100%;">
+                    <div class="logo" style="width: 100%;">
+                        <h1 style="text-align: center;"><a href="./"><img src="img/vertu4.png" style="max-width: 250px;"></a></h1>
                     </div>
                 </div>
                 
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <div class="shopping-item">
                         <a href="cart.php">Giỏ Hàng
-                            <!-- <span class="cart-amunt"><?=number_format($_SESSION["cart"]['total'])?></span>  -->
+                            <span class="cart-amunt"><?=number_format($_SESSION["cart"]['total'])?></span>
                             <i class="fa fa-shopping-cart"></i> 
-                            <!-- <span class="product-count"><?=$_SESSION["cart"]['quantity']?></span> -->
+                            <span class="product-count"><?=$_SESSION["cart"]['quantity']?></span>
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div> <!-- End site branding area -->
@@ -143,7 +183,12 @@
                         <li><a href="single-product.php">Single product</a></li>
                         <li><a href="cart.php">Cart</a></li>
                         <li class="active"><a href="checkout.php">Checkout</a></li>
-                        <li><a >Category</a></li>
+                        <li><a href="account.php">Account</a></li>
+<?php
+    if(isset($_SESSION['login']['admin'])) {
+        echo '<li><a href="admin.php">Admin</a></li>';
+    }
+?>
                         <li><a >Others</a></li>
                         <li><a >Contact</a></li>
                     </ul>
@@ -151,13 +196,42 @@
             </div>
         </div>
     </div> <!-- End mainmenu area -->  
-<?php if (!empty($error)) { ?> 
-        <div id="notify-msg" style="font-size: 44px; text-align: center; margin-bottom: 300px" class="msg">
-            <?= $error ?></br> <a href="javascript:history.back()">Quay lại</a>
+<?php if (!empty($error)) {
+        if($error == "Bạn Đang Đăng Nhập Với Tư Cách Quản Trị Viên! Nên Không Thể Mua Hàng!") { ?>
+          <div style="text-align: center; height: 500px; margin-bottom: 100px">
+            <img src="img/cancel.png" style="max-height: 150px">
+            <h1><?=$error?></h1>
+<?php
+        }elseif ($error == "Bạn Chưa Đăng Nhập. Vui Lòng Đăng Nhập!") {  ?>
+        <div style="text-align: center; height: 500px;">
+            <img src="img/cancel.png" style="max-height: 150px">
+            <h1><?=$error?></h1>
+            <a href="login.php" style="color: white">
+                <button style="background-color: rgb(52, 207, 86);border-radius: 20px; border-color: white;  width: 100px;text-align: center;height: 40px;position: relative;">
+                Đăng Nhập
+                </button>
+            <a>
+<?php
+    }   else {
+?>
+        <div style="text-align: center; height: 500px;">
+            <img src="img/cancel.png" style="max-height: 150px">
+            <h1><?=$error?></h1>
+            <a href="shop.php?action=1" style="color: white">
+                <button style="background-color: rgb(52, 207, 86);border-radius: 20px; border-color: white;  width: 100px;text-align: center;height: 40px;position: relative;">
+                Cửa Hàng
+                </button>
+            <a>
         </div>
-<?php } elseif (!empty($success)) { ?>
-        <div id="notify-msg" style="font-size: 44px; text-align: center; margin-bottom: 300px" class="msg">
-            <?= $success ?>!!</br> <a href="index.php">Tiếp tục mua hàng</a>
+<?php }} elseif (!empty($success)) { ?>
+    <div style="text-align: center; height: 500px;">
+            <img src="img/checked.png" style="max-height: 150px">
+            <h1><?=$success?></h1>
+            <a href="index.php" style="color: white">
+                <button style="background-color: rgb(52, 207, 86);border-radius: 20px; border-color: white;  width: 100px;text-align: center;height: 40px;position: relative;">
+                Trang Chủ
+                </button>
+            <a>
         </div>
 <?php 
 } else { ?> 
@@ -216,41 +290,6 @@
                     <div class="product-content-right">
                         <div class="woocommerce">
                             <form action="checkout.php?action=submit" class="checkout" method="post" name="checkout">
-
-                                <div id="customer_details" class="col2-set">
-                                    <div class="col-1">
-                                        <div class="woocommerce-billing-fields">
-                                            <h3>Thông Tin Chi Tiết</h3>
-
-                                            <p id="billing_first_name_field" class="form-row form-row-first validate-required">
-                                                <label class="" for="billing_first_name">Họ và Tên <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" value="" placeholder="" id="name_cus" name="name_cus" class="input-text ">
-                                            </p>
-                                            <div class="clear"></div>
-
-                                            <p id="billing_company_field" class="form-row form-row-wide">
-                                                <label class="" for="billing_company">Số Điện Thoại</label>
-                                                <input type="text" value="" placeholder="" id="phone_cus" name="phone_cus" class="input-text ">
-                                            </p>
-
-                                            <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
-                                                <label class="" for="billing_address_1">Địa Chỉ Giao Hàng <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" value="" placeholder="Nhập địa chỉ..." id="address_cus" name="address_cus" class="input-text ">
-                                            </p>
-
-                                            <div class="clear"></div>
-
-                                            <p id="billing_email_field" class="form-row form-row-first validate-required validate-email">
-                                                <label class="" for="billing_email">Email <abbr title="required" class="required">(Nếu có)</abbr>
-                                                </label>
-                                                <input type="text" value="" placeholder="Nhập email..." id="billing_email" name="billing_email" class="input-text ">
-                                            </p>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <h3 id="order_review_heading">Hóa Đơn Của Bạn</h3>
 
                                 <div id="order_review" style="position: relative;">
@@ -265,10 +304,17 @@
                                             <tr class="cart_item">
 <?php
 $tt = 0;
+$quantity = 0;
+$_SESSION['form']['price'] = array();
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = array();
+}
 foreach($_SESSION["cart"] as $index => $quan) {
     if($index < 100) {
-        $sql = "SELECT * FROM kDAbiPc3dp.computer WHERE id_pc = $index";
+        $sql = "SELECT id_pc, img_pc, name_pc, price_pc FROM web_maytinh.computer WHERE id_pc = $index";
         $row = executeSingleResult($sql);
+        $quantity += $quan;
+        $_SESSION['form']['price'][$index] = (int) $row['price_pc'];
         $tt += $quan*$row['price_pc'];
 ?>
                                                 <td class="product-name">
@@ -278,19 +324,23 @@ foreach($_SESSION["cart"] as $index => $quan) {
                                          </tr>
 <?php
     } elseif ($index > 100 && $index <= 200) {
-        $sql = "SELECT * FROM kDAbiPc3dp.accessories WHERE id_acc = $index";
+        $sql = "SELECT id_acc, img_acc, name_acc, price_acc FROM web_maytinh.accessories WHERE id_acc = $index";
         $row = executeSingleResult($sql);
+        $quantity += $quan;
+        $_SESSION['form']['price'][$index] = (int) $row['price_acc'];
         $tt += $quan*$row['price_acc'];
 ?>
                                                 <td class="product-name">
                                                     <?=$row['name_acc']?><strong class="product-quantity"> ×<?=$quan?></strong> </td>
                                                 <td class="product-total">
-                                                    <span class="amount"><?=number_format($quan*$row['price_acc'])?> vNĐ</span> </td>
+                                                    <span class="amount"><?=number_format($quan*$row['price_acc'])?> VNĐ</span> </td>
                                             </tr>
 <?php
-    } elseif ($index > 100 && $index <= 200) {
-        $sql = "SELECT * FROM kDAbiPc3dp.components WHERE id_com = $index";
+    } elseif ($index > 200) {
+        $sql = "SELECT id_com, img_com, name_com, price_com FROM web_maytinh.components WHERE id_com = $index";
         $row = executeSingleResult($sql);
+        $quantity += $quan;
+        $_SESSION['form']['price'][$index] = (int) $row['price_com'];
         $tt += $quan*$row['price_com'];
 ?>
                                                 <td class="product-name">

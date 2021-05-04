@@ -7,6 +7,7 @@ require_once ('config.php');
 function execute($sql) {
 	//create connection toi database
 	$conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+	// $sql = $conn->real_escape_string($sql);
 
 	//query
 	mysqli_query($conn, $sql);
@@ -18,7 +19,7 @@ function execute($sql) {
 function executeConn($sql) {
 	//create connection toi database
 	$conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
-
+	// $sql = $conn->real_escape_string($sql);
 	//query
 	mysqli_query($conn, $sql);
 	return $conn;
@@ -31,7 +32,7 @@ function executeConn($sql) {
 function executeResult($sql) {
 	//create connection toi database
 	$conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
-
+	// $sql = $conn->real_escape_string($sql);
 	//query
 	$resultset = mysqli_query($conn, $sql);
 	$list      = [];
@@ -48,6 +49,7 @@ function executeResult($sql) {
 function executeSingleResult($sql) {
 	//create connection toi database
 	$conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+	// $sql = $conn->real_escape_string($sql);
 
 	//query
 	$resultset = mysqli_query($conn, $sql);
@@ -57,4 +59,20 @@ function executeSingleResult($sql) {
 	mysqli_close($conn);
 
 	return $row;
+}
+function getCurrentPageURL() {
+	// $pageURL = 'http';
+	// if (!empty($_SERVER['HTTPS'])) {
+	// if ($_SERVER['HTTPS'] == 'on') {
+	// $pageURL .= "s";
+	// }
+	// }
+	// $pageURL .= "://";
+	$pageURL = '';
+	if ($_SERVER["SERVER_PORT"] != "80") {
+	$pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+	} else {
+	$pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+	}
+	return $pageURL;
 }

@@ -1,9 +1,9 @@
-<?php 
-    session_start();
-    // var_dump($_SESSION['cart']); exit;
+<?php session_start(); 
+    // var_dump($_SESSION['login']); exit;
     // var_dump(($_POST));
     // $name_cus = $phone_cus =$address_cus = $user_cus = $pass_cus = '';
     if(!empty($_SESSION['login']['user'])) {
+        $id_cus = $_SESSION['login']['user']['id_cus'];
         $name_cus = $_SESSION['login']['user']['name_cus'];
         $phone_cus = $_SESSION['login']['user']['phone_cus'];
         $address_cus = $_SESSION['login']['user']['address_cus'];
@@ -11,18 +11,25 @@
         $pass_cus = $_SESSION['login']['user']['pass_cus'];
     }
 ?>
+
 <!DOCTYPE html>
+<!--
+	ustora by freshdesignweb.com
+	Twitter: https://twitter.com/freshdesignweb
+	URL: https://www.freshdesignweb.com/ustora/
+-->
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Giỏ Hàng</title>
+    <title>Thông Tin Tài Khoản</title>
     
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -43,7 +50,7 @@
     <![endif]-->
   </head>
   <body>
-  <div class="header-area">
+        <div class="header-area">
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
@@ -62,13 +69,42 @@
 <?php }
 ?>
                             <li><a href="checkout.php"><img src="img/money.png" style="max-height: 15px"></i> Thanh Toán</a></li>
-                            <li><a href="login.php"><i class="fa fa-shopping-cart"></i></i>Giỏ Hàng</a></li>
+                            <li><a href="cart.php"><i class="fa fa-shopping-cart"></i></i>Giỏ Hàng</a></li> 
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div> <!-- End header area -->
+<?php
+    require_once ('config.php');
+    require_once ('dbhelp.php');
+    // var_dump($_SESSION['form']); exit;
+    $error = false;
+    $sucess = false;
+    // var_dump($_GET['action']); exit;
+    if(isset($_GET['action'])) {
+        // var_dump($_POST);
+        if($_GET['action'] == 'submit') {
+            if (isset($_POST['save-click'])) {
+                if(empty($_POST['name']) && isset($_POST['name'])) {
+                    $error = "Bạn chưa nhập Họ Và Tên!";
+                }
+                elseif(empty($_POST['phone']) && isset($_POST['phone'])) {
+                    $error = "Bạn chưa nhập Số Điện Thoại!";
+                }
+                elseif((empty($_POST['address']) || strlen($_POST['address'])<10) && isset($_POST['address'])) {
+                    $error = "Bạn chưa nhập Địa Chỉ hoặc Địa Chỉ của bạn chưa cụ thể!";
+                }
+                if($error == false) {
+                    $sucess = true;
+                }
+                // var_dump($error); exit;
+            }
+        }
+    }
+    // var_dump($_SESSION['cart']); exit;
+?>
     <div class="site-branding-area">
         <div class="container" style="width: 100%;">
             <div class="row" style="width: 100%;">
@@ -94,14 +130,22 @@
     <div class="mainmenu-area">
         <div class="container">
             <div class="row">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div> 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="index.php">Home</a></li>
                         <li><a href="shop.php?action=1">Shop page</a></li>
                         <li><a href="single-product.php">Single product</a></li>
-                        <li class="active"><a href="cart.php">Cart</a></li>
+                        <li><a href="cart.php">Cart</a></li>
                         <li><a href="checkout.php">Checkout</a></li>
-                        <li><a href="account.php">Account</a></li>
+                        <li class="active"><a href="account.php">Account</a></li>
 <?php
     if(isset($_SESSION['login']['admin'])) {
         echo '<li><a href="admin.php">Admin</a></li>';
@@ -113,28 +157,38 @@
                 </div>  
             </div>
         </div>
-    </div> <!-- End mainmenu area -->
-    
+    </div> <!-- End mainmenu area -->  
+<?php if (!empty($_SESSION['login']['admin'])) { ?>
+        <div id="notify-msg" style="font-size: 44px; text-align: center; margin-bottom: 300px" class="msg">
+            Bạn Đang Đăng Nhập Với Tư Cách Quản Trị Viên!</br><a href="admin.php">Trang Quản Lý</a>
+        </div>
+        
+<?php
+} elseif(empty($_SESSION['login']['user'])) { ?> 
+        <div id="notify-msg" style="font-size: 44px; text-align: center; margin-bottom: 300px" class="msg">
+            Bạn Chưa Đăng Nhập. Vui Lòng Đăng Nhập!</br><a href="login.php">Đăng Nhập</a>
+        </div>
+<?php } else { ?>
     <div class="product-big-title-area">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-bit-title text-center">
-                        <h2>Giỏ Hàng</h2>
+                        <h2>Thông Tin Tài Khoản</h2>
                     </div>
                 </div>
             </div>
         </div>
-    </div> <!-- End Page title area -->
+    </div>
     
     
     <div class="single-product-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4"> 
                     <div class="single-sidebar">
-                        <h2 class="sidebar-title">Sản Phẩm Siêu Hot</h2>
+                    <h2 class="sidebar-title">Sản Phẩm Siêu Hot</h2>
                         <div class="thubmnail-recent">
                             <img src="img/Dell-Gaming-G5_9.jpg" class="recent-thumb" alt="">
                             <h2><a href="single-product.php?id_pro=9">Dell Gaming G5</a></h2>
@@ -165,204 +219,126 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-md-8">
                     <div class="product-content-right">
                         <div class="woocommerce">
-                            <form id="cart-form" method="post" action = "cart.php?action=submit">
-<?php
-require_once ('dbhelp.php');
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = array();
-}
-// var_dump($_GET['action']); exit;
-$quantity_ord = 0;
-$total = 0;
-if (isset($_GET['action'])) {
-    function updateData($add = false) {
-        // var_dump(isset($_POST['quantity'])); exit;
-        if(isset($_POST['quantity'])) {
-            foreach ($_POST['quantity'] as $id => $quantity) {
-                if($add) {
-                    if(!isset($_SESSION["cart"][$id])) {
-                        $_SESSION["cart"][$id] = (int) $quantity;
-                    } else {
-                        $_SESSION["cart"][$id] += (int) $quantity;
-                    }
-                } else {
-                    if ($quantity == 0) {
-                        unset($_SESSION["cart"][$id]);
-                    } else {
-                        $_SESSION["cart"][$id] = (int) $quantity;
-                    }
-                }
-            }
-        }
-    }
-    switch ($_GET['action']) {
-        case "add" :
-            updateData(true);
-            echo("<script>location.href = 'cart.php';</script>");
-            break;
-        case "delete" :
-            if(isset($_GET['id_pc'])) {
-                unset($_SESSION["cart"][$_GET['id_pc']]);
-            } else if (isset($_GET['id_acc'])) {
-                unset($_SESSION["cart"][$_GET['id_acc']]);
-            }
-            else if (isset($_GET['id_com'])) {
-                unset($_SESSION["cart"][$_GET['id_com']]);
-            }
-            echo("<script>location.href = 'cart.php';</script>");
-            break;
-        case "submit" :
-            if($_POST['update-click']) {
-                updateData();
-            }
-            echo("<script>location.href = 'cart.php';</script>");
-            break;
-    }
-}
-// $_SESSION['cart'] = array();
-// var_dump($_SESSION['cart']); exit;
-if ($_SESSION['cart'] == array()) { ?>
-    <div style="text-align: center; height: 500px;">
-            <img src="img/cancel.png" style="max-height: 150px">
-            <h1>Bạn chưa mua sản phẩm nào!</h1>
-            <a href="shop.php?action=1" style="color: white">
-                <button style="background-color: rgb(52, 207, 86);border-radius: 20px; border-color: white;  width: 100px;text-align: center;height: 40px;position: relative;">
-                Cửa Hàng
-                </button>
-            <a>
-    </div>
-<?php
-}else { ?>
-                                <table cellspacing="0" class="shop_table cart">
-                                    <thead>
-                                        <tr>
-                                            <th class="product-remove">&nbsp;</th>
-                                            <th class="product-thumbnail">Sản Phẩm</th>
-                                            <th class="product-name">Tên</th>
-                                            <th class="product-price">Giá</th>
-                                            <th class="product-quantity">Số lượng</th>
-                                            <th class="product-subtotal">Tổng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-<?php
-// $_SESSION['cart'] = array();
-// var_dump($_SESSION['cart'] == array()); exit;
-    foreach($_SESSION["cart"] as $index => $quan) {
-        if($index < 100) {
-            $sql = "SELECT id_pc, img_pc, name_pc, price_pc FROM web_maytinh.computer WHERE id_pc = $index";
-            $row = executeSingleResult($sql);
-?>
-            <tr>
-                <th class="product-remove">
-                    <a title="Remove this item" class="remove" href="cart.php?action=delete&id_pc=<?=$row['id_pc']?>">×</a> 
-                </th>
-                <th class="product-thumbnail"><img src="<?=$row['img_pc']?>"></th>
-                <th class="product-name"><?=$row['name_pc']?></th>
-                <th class="product-price"><?=number_format($row['price_pc'])?></th>
-                <th class="product-quantity"><input style="max-width: 50px" type="number" size="1" class="input-text qty text" title="Qty" value="<?=$_SESSION["cart"][$row['id_pc']]?>" name = "quantity[<?=$row['id_pc']?>]" min="0" step="1"></th>
-                <th class="product-subtotal"><?=number_format($row['price_pc'] * $_SESSION["cart"][$row['id_pc']])?></th>
-            </tr>
-<?php
-            $total +=  $row['price_pc'] * $_SESSION["cart"][$row['id_pc']];
-            $quantity_ord += $_SESSION["cart"][$row['id_pc']];
-        }
-        if($index > 100 && $index < 200) {
-            $sql = "SELECT id_acc, img_acc, name_acc, price_acc FROM web_maytinh.accessories WHERE id_acc = $index";
-            $row = executeSingleResult($sql);
-?>
-            <tr>
-                <th class="product-remove">
-                    <a title="Remove this item" class="remove" href="cart.php?action=delete&id_pc=<?=$row['id_acc']?>">×</a> 
-                </th>
-                <th class="product-thumbnail"><img src="<?=$row['img_acc']?>"></th>
-                <th class="product-name"><?=$row['name_acc']?></th>
-                <th class="product-price"><?=number_format($row['price_acc'])?></th>
-                <th class="product-quantity"><input style="max-width: 50px" type="number" size="1" class="input-text qty text" title="Qty" value="<?=$_SESSION["cart"][$row['id_acc']]?>" name = "quantity[<?=$row['id_acc']?>]" min="0" step="1"></th>
-                <th class="product-subtotal"><?=number_format($row['price_acc'] * $_SESSION["cart"][$row['id_acc']])?></th>
-            </tr>
-<?php
-            $total +=  $row['price_acc'] * $_SESSION["cart"][$row['id_acc']];
-            $quantity_ord += $_SESSION["cart"][$row['id_acc']];
-        }
-        if($index > 200) {
-            // var_dump($index); exit;
-            $sql = "SELECT id_com, img_com, name_com, price_com FROM web_maytinh.components WHERE id_com = $index";
-            $row = executeSingleResult($sql);
-            // var_dump($row); exit;
-?>
-            <tr>
-                <th class="product-remove">
-                    <a title="Remove this item" class="remove" href="cart.php?action=delete&id_pc=<?=$row['id_com']?>">×</a> 
-                </th>
-                <th class="product-thumbnail"><img src="<?=$row['img_com']?>"></th>
-                <th class="product-name"><?=$row['name_com']?></th>
-                <th class="product-price"><?=number_format($row['price_com'])?></th>
-                <th class="product-quantity"><input style="max-width: 50px" type="number" size="1" class="input-text qty text" title="Qty" value="<?=$_SESSION["cart"][$row['id_com']]?>" name = "quantity[<?=$row['id_com']?>]" min="0" step="1"></th>
-                <th class="product-subtotal"><?=number_format($row['price_com'] * $_SESSION["cart"][$row['id_com']])?></th>
-            </tr>
-<?php
-            $total +=  $row['price_com'] * $_SESSION["cart"][$row['id_com']];
-            $quantity_ord += $_SESSION["cart"][$row['id_com']];
-        }    
-    }
-    // var_dump($total); exit;
-?>
-                                        <tr>
-                                            <td class="actions" colspan="6">
-                                                <input value="Cập Nhật" type = "submit" name = "update-click" class="button" style="margin-left: 500px">
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-<?php
-}
-$_SESSION['form'][-1] = $total;
-$_SESSION['form'][-2] = $quantity_ord;
-// var_dump($_SESSION['form'][-1]); exit;
-?>
-                            </form>
-                            <div class="cart-collaterals">
-                            <div class="cart_totals">
-                                <h2>Tổng Chi Phí</h2>
+                        <form action="account.php?action=submit" class="checkout" method="post" name="checkout">
+                            <div id="customer_details" class="col2-set">
+                                <div class="col-1">
+                                    <div class="woocommerce-billing-fields">
+                                        <h3>Thông Tin Chi Tiết</h3>
 
-                                <table cellspacing="0">
-                                    <tbody>
-                                        <tr class="cart-subtotal">
-                                            <th>Chi Phí</th>
-                                            <td><span class="amount"><?=number_format($total)?> VNĐ</span></td>
-                                        </tr>
+                                        <p id="billing_first_name_field" class="form-row form-row-first validate-required">
+                                            <label class="" for="billing_first_name">Họ và Tên
+                                                <button class="btn-repair" type="repair" name="repair-name" title="repair"  >
+                                                    <img src="img/repair.png" style="max-height: 12px"/>Sửa
+                                                </button>
+                                            </label>
+<?php
+if (isset($_POST['repair-name'])) { ?>
+                                            <input type="text" value="<?=$name_cus?>" id="name_cus" name="name" class="input-text"> 
+<?php } else { ?>
+                                            <input type="text" value="<?=$name_cus?>" id="name_cus" name="name" class="input-text" disabled='true'>
+<?php }
+?>
+                                            
+                                        </p>
+                                        <div class="clear"></div>
 
-                                        <tr class="shipping">
-                                            <th>Phí Ship</th>
-                                            <td>Free Shipping</td>
-                                        </tr>
+                                        <p id="billing_company_field" class="form-row form-row-wide">
+                                            <label class="" for="billing_company">Số Điện Thoại
+                                                <button class="btn-repair" type="repair" name="repair-phone" title="repair" style="font-size: 12px; border-width: 0px; background-color: white; text-decoration: underline;" >
+                                                    <img src="img/repair.png" style="max-height: 12px"/>Sửa
+                                                </button>
+                                            </label>
+<?php
+if (isset($_POST['repair-phone'])) { ?>
+                                            <input type="text" value="<?=$phone_cus?>" id="phone" name="phone" class="input-text ">
+<?php } else { ?>
+                                            <input type="text" value="<?=$phone_cus?>" id="phone" name="phone" class="input-text " disabled='true'>
+<?php }
+?>
+                                        </p>
 
-                                        <tr class="order-total">
-                                            <th>Chi Phí Thanh Toán</th>
-                                            <td><strong><span class="amount"><?=number_format($total)?> VNĐ</span></strong> </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                        <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
+                                            <label class="" for="billing_address_1" title="Yêu Cầu Địa Chỉ phải cụ thể!">Địa Chỉ Giao hàng
+                                                <button class="btn-repair" type="repair" name="repair-address" title="Yêu Cầu Địa Chỉ phải cụ thể!" style="font-size: 12px; border-width: 0px; background-color: white; text-decoration: underline;" >
+                                                    <img src="img/repair.png" style="max-height: 12px"/>Sửa
+                                                </button>
+                                            </label>
+<?php
+if (isset($_POST['repair-address'])) { ?>
+                                            <input type="text" value="<?=$address_cus?>"  id="address" name="address" class="input-text ">
+<?php } else { ?>
+                                            <input type="text" value="<?=$address_cus?>"  id="address" name="address" class="input-text " disabled='true'>
+<?php }
+?>
+                                        </p>
+                                            
+                                        <div class="clear"></div>
+
+                                        <p id="billing_email_field" class="form-row form-row-first validate-required validate-email">
+                                            <label class="" for="billing_email" title="Yêu cầu độ dài ít nhất 6 kí tự và nhiều nhất 16 kí tự!" >Tên Đăng Nhập
+                                            </label>
+                                            <input type="text" value="<?=$user_cus?>" id="user" name="user" class="input-text" disabled = 'true'>
+                                        </p>
+                                        <div class="clear"></div>
+
+                                        <p id="billing_email_field" class="form-row form-row-first validate-required validate-email">
+                                            <label class="" for="billing_email" title="Yêu cầu độ dài ít nhất 6 kí tự và nhiều nhất 24 kí tự!">Mật Khẩu
+                                                <a href="pass.php?action=repass">
+                                                    <img src="img/repair.png" style="max-height: 12px"/>
+                                                    <input value="Đổi mật khẩu" class="btn-repair" type="repair" name="repair-pass" title="Yêu cầu độ dài ít nhất 6 kí tự!" style="font-size: 12px; border-width: 0px; background-color: white; text-decoration: underline;" >
+                                                </a>
+                                            </label>
+                                            <input type="text" value="doanxemm" id="pass" name="pass" class="input_password" disabled = 'true'>
+                                        </p>
+<?php
+    if ($sucess) {
+        require_once('dbhelp.php');
+        // var_dump($_POST); exit;
+        if (isset($_POST['name'])) {
+            $sql = "UPDATE web_maytinh.customer SET name_cus = '".$_POST['name']."' WHERE id_cus = '$id_cus';";
+            execute($sql);
+        }elseif (isset($_POST['phone'])) {
+            $sql = "UPDATE web_maytinh.customer SET phone_cus = '".$_POST['phone']."' WHERE id_cus = '$id_cus';";
+            execute($sql);
+        }elseif (isset($_POST['address'])) {
+            $sql = "UPDATE web_maytinh.customer SET address_cus = '".$_POST['address']."' WHERE id_cus = '$id_cus';";
+            execute($sql);
+        }
+        // var_dump($pass_cus); exit;
+        $sql = "SELECT * FROM web_maytinh.customer WHERE id_cus = '$id_cus';";
+        $rs = executeSingleResult($sql);
+        // var_dump($rs); exit;
+        $_SESSION['login']['user'] = $rs;
+        echo("<script>location.href = 'account.php';</script>");
+    } else {
+?>      
+                                        <h6 style="color: red;"><?=$error?></h6>
+<?php    
+    }
+?>
+                                        <div class="form-row place-order">
+                                            <input style="margin-left: 250px" type="submit" name="save-click" value="Xác Nhận" id="place_order" name="woocommerce_checkout_place_order" class="button alt">
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <td class="actions" colspan="6">
-                                <a href="checkout.php">
-                                    <input type="submit" value="Thanh Toán" name="proceed" class="checkout-button button alt wc-forward" style="margin-left: 600px; margin-bottom: 20px">
-                                </a>
-                            </td>
-                            </div>
-                        </div>                        
+                        </form>
+                        </div>                       
                     </div>                    
                 </div>
             </div>
         </div>
     </div>
+<?php
+}
+?>
 
-
-    <div class="footer-top-area">
+<div class="footer-top-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">

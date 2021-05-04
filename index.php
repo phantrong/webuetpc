@@ -1,4 +1,16 @@
-
+<?php
+    session_start();
+    // var_dump($_SESSION['login']['admin']); exit;
+    // var_dump(($_POST));
+    // $name_cus = $phone_cus =$address_cus = $user_cus = $pass_cus = '';
+    if(!empty($_SESSION['login']['user'])) {
+        $name_cus = $_SESSION['login']['user']['name_cus'];
+        $phone_cus = $_SESSION['login']['user']['phone_cus'];
+        $address_cus = $_SESSION['login']['user']['address_cus'];
+        $user_cus = $_SESSION['login']['user']['user_cus'];
+        $pass_cus = $_SESSION['login']['user']['pass_cus'];
+    }
+?>
 <!DOCTYPE html>
 <!--
 	ustora by freshdesignweb.com
@@ -36,24 +48,50 @@
     <![endif]-->
   </head>
   <body>
-    <div class="site-branding-area">
+  <div class="header-area">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="logo">
-                        <h1><a href="./"><img src="img/vertu.jpg"></a></h1>
+                <div class="col-md-8">
+                    <div class="user-menu">
+                        <ul>
+<?php
+    if(!empty($_SESSION['login']['user'])) { ?>
+                            <li><a href="account.php"><i class="fa fa-user"></i><?=$user_cus?></a></li>
+                            <li><a href="login.php?action=logout"><i class="fa fa-user"></i>Đăng Xuất</a></li>
+<?php } elseif(!empty($_SESSION['login']['admin'])) { ?>
+                            <li><a href="account.php"><i class="fa fa-user"></i>ADMIN</a></li>
+                            <li><a href="login.php?action=logout"><i class="fa fa-user"></i>Đăng Xuất</a></li>
+<?php } else { ?>
+                            <li><a href="account.php"><i class="fa fa-user"></i>Tài Khoản</a></li>
+                            <li><a href="login.php"><i class="fa fa-user"></i>Đăng Nhập</a></li>
+<?php }
+?>
+                            <li><a href="checkout.php"><img src="img/money.png" style="max-height: 15px"></i> Thanh Toán</a></li>
+                            <li><a href="cart.php"><i class="fa fa-shopping-cart"></i></i>Giỏ Hàng</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End header area -->
+    <div class="site-branding-area">
+        <div class="container" style="width: 100%;">
+            <div class="row" style="width: 100%;">
+                <div class="col-sm-6" style="width: 100%;">
+                    <div class="logo" style="width: 100%;">
+                        <h1 style="text-align: center;"><a href="./"><img src="img/vertu4.png" style="max-width: 250px;"></a></h1>
                     </div>
                 </div>
                 
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <div class="shopping-item">
                         <a href="cart.php">Giỏ Hàng
-                            <!-- <span class="cart-amunt"><?=number_format($_SESSION["cart"]['total'])?></span>  -->
+                            <span class="cart-amunt"><?=number_format($_SESSION["cart"]['total'])?></span>
                             <i class="fa fa-shopping-cart"></i> 
-                            <!-- <span class="product-count"><?=$_SESSION["cart"]['quantity']?></span> -->
+                            <span class="product-count"><?=$_SESSION["cart"]['quantity']?></span>
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div> <!-- End site branding area -->
@@ -76,7 +114,12 @@
                         <li><a href="single-product.php">Single product</a></li>
                         <li><a href="cart.php">Cart</a></li>
                         <li><a href="checkout.php">Checkout</a></li>
-                        <li><a >Category</a></li>
+                        <li><a href="account.php">Account</a></li>
+<?php
+    if(isset($_SESSION['login']['admin'])) {
+        echo '<li><a href="admin.php">Admin</a></li>';
+    }
+?>
                         <li><a >Others</a></li>
                         <li><a >Contact</a></li>
                     </ul>
@@ -172,78 +215,86 @@
                         <h2 class="section-title">Sản Phẩm Mới Nhất</h2>
                         <div class="product-carousel">
 <?php
-// var_dump($pc);
 require_once('dbhelp.php');
-$sql1 = "SELECT max(id_pc) FROM kDAbiPc3dp.computer;";
+// $sql1 = "SELECT max(id_pc) FROM kDAbiPc3dp.computer;";
+$sql1 = "SELECT max(id_pc) FROM web_maytinh.computer;";
 $row = executeSingleResult($sql1);
 $id_pc = (int)$row["max(id_pc)"];
-for($i=$id_pc; $i>=$id_pc-5; $i--) {
-    $sql = "SELECT * FROM kDAbiPc3dp.computer WHERE id_pc = $i;";
+for($i=$id_pc; $i>=$id_pc-3; $i--) {
+    // $sql = "SELECT name_pc, img_pc, price_pc FROM kDAbiPc3dp.computer WHERE id_pc = $i;";
+    $sql = "SELECT name_pc, img_pc, price_pc FROM web_maytinh.computer WHERE id_pc = $i;";
     $pc = executeSingleResult($sql);
     // var_dump($pc);
 ?>
                             <div class="single-product">
-                                <div class="product-f-image">
+                                <div class="product-f-image"  style="margin-bottom: 5px; position: static;">
                                     <img src="<?=$pc['img_pc']?>" alt="">
-                                    <div class="product-hover">
+                                    <div class="product-hover" style="border: 0px">
                                         <a href="single-product.php?id_pro=<?=$i?>" class="view-details-link"><i class="fa fa-link"></i> Xem Chi Tiết</a>
                                     </div>
                                 </div>
-                                
-                                <h2><a href="single-product.php"><?=$pc['name_pc']?></a></h2>
-                                
-                                <div class="product-carousel-price">
-                                    <ins><?=number_format($pc['price_pc'])?> VNĐ</ins>
+                                <div class="bd">
+                                    <h2><a href="single-product.php"><?=$pc['name_pc']?></a></h2>
+                                    
+                                    <div class="product-carousel-price">
+                                        <ins><?=number_format($pc['price_pc'])?> VNĐ</ins>
+                                    </div>
                                 </div> 
                             </div>
 <?php   
 }
-$sql1 = "SELECT max(id_com) FROM kDAbiPc3dp.components;";
+// $sql1 = "SELECT max(id_com) FROM kDAbiPc3dp.components;";
+$sql1 = "SELECT max(id_com) FROM web_maytinh.components;";
 $row = executeSingleResult($sql1);
 $id_pc = (int)$row["max(id_com)"];
-for($i=$id_pc; $i>=$id_pc-5; $i--) {
-    $sql = "SELECT * FROM kDAbiPc3dp.components WHERE id_com = $i;";
+for($i=$id_pc; $i>=$id_pc-3; $i--) {
+    // $sql = "SELECT name_com, img_com, price_com FROM kDAbiPc3dp.components WHERE id_com = $i;";
+    $sql = "SELECT name_com, img_com, price_com FROM web_maytinh.components WHERE id_com = $i;";
     $pc = executeSingleResult($sql);
     // var_dump($pc);
 ?>
                             <div class="single-product">
-                                <div class="product-f-image">
+                                <div class="product-f-image"  style="margin-bottom: 5px; position: static;">
                                     <img src="<?=$pc['img_com']?>" alt="">
-                                    <div class="product-hover">
+                                    <div class="product-hover" style="border: 0px">
                                         <a href="single-product.php?id_pro=<?=$i?>" class="view-details-link"><i class="fa fa-link"></i> Xem Chi Tiết</a>
                                     </div>
                                 </div>
-                                
-                                <h2><a href="single-product.php"><?=$pc['name_com']?></a></h2>
-                                
-                                <div class="product-carousel-price">
-                                    <ins><?=number_format($pc['price_com'])?> VNĐ</ins>
-                                </div> 
+                                <div class="bd">
+                                    <h2><a href="single-product.php"><?=$pc['name_com']?></a></h2>
+                                    
+                                    <div class="product-carousel-price">
+                                        <ins><?=number_format($pc['price_com'])?> VNĐ</ins>
+                                    </div>
+                                </div>
                             </div>
 <?php   
 }
 require_once('dbhelp.php');
-$sql1 = "SELECT max(id_acc) FROM kDAbiPc3dp.accessories;";
+// $sql1 = "SELECT max(id_acc) FROM kDAbiPc3dp.accessories;";
+$sql1 = "SELECT max(id_acc) FROM web_maytinh.accessories;";
 $row = executeSingleResult($sql1);
 $id_pc = (int)$row["max(id_acc)"];
-for($i=$id_pc; $i>=$id_pc-5; $i--) {
-    $sql = "SELECT * FROM kDAbiPc3dp.accessories WHERE id_acc = $i;";
+for($i=$id_pc; $i>=$id_pc-3; $i--) {
+    // $sql = "SELECT name_acc, img_acc, price_acc FROM kDAbiPc3dp.accessories WHERE id_acc = $i;";
+    $sql = "SELECT name_acc, img_acc, price_acc FROM web_maytinh.accessories WHERE id_acc = $i;";
     $pc = executeSingleResult($sql);
     // var_dump($pc);
 ?>
                             <div class="single-product">
-                                <div class="product-f-image">
+                                <div class="product-f-image"  style="margin-bottom: 5px; position: static;">
                                     <img src="<?=$pc['img_acc']?>" alt="">
-                                    <div class="product-hover">
+                                    <div class="product-hover" style="border: 0px">
                                         <a href="single-product.php?id_pro=<?=$i?>" class="view-details-link"><i class="fa fa-link"></i> Xem Chi Tiết</a>
                                     </div>
                                 </div>
+                                <div class="bd">
+                                    <h2><a href="single-product.php"><?=$pc['name_acc']?></a></h2>
+                                    <div class="product-carousel-price">
+                                        <ins><?=number_format($pc['price_acc'])?> VNĐ</ins>
+                                    </div>
+                                </div>
                                 
-                                <h2><a href="single-product.php"><?=$pc['name_acc']?></a></h2>
-                                
-                                <div class="product-carousel-price">
-                                    <ins><?=number_format($pc['price_acc'])?> VNĐ</ins>
-                                </div> 
                             </div>
 <?php   
 }                                                          
@@ -286,11 +337,13 @@ for($i=$id_pc; $i>=$id_pc-5; $i--) {
                         <a href="shop.php?action=1" class="wid-view-more">Xem tất cả</a>
 <?php
 require_once('dbhelp.php');
-$sql1 = "SELECT max(id_pc) FROM kDAbiPc3dp.computer;";
+// $sql1 = "SELECT max(id_pc) FROM kDAbiPc3dp.computer;";
+$sql1 = "SELECT max(id_pc) FROM web_maytinh.computer;";
 $row = executeSingleResult($sql1);
 $id_pc = (int)$row["max(id_pc)"];
 for($i=$id_pc; $i>=$id_pc-30; $i-=15) {
-    $sql = "SELECT * FROM kDAbiPc3dp.computer WHERE id_pc = $i;";
+    // $sql = "SELECT name_pc, img_pc, price_pc FROM kDAbiPc3dp.computer WHERE id_pc = $i;";
+    $sql = "SELECT name_pc, img_pc, price_pc FROM web_maytinh.computer WHERE id_pc = $i;";
     $pc = executeSingleResult($sql);
     // var_dump($pc);
 ?>
@@ -319,11 +372,13 @@ for($i=$id_pc; $i>=$id_pc-30; $i-=15) {
                         <a href="shop.php?action=10" class="wid-view-more">Xem tất cả</a>
 <?php
 require_once('dbhelp.php');
-$sql1 = "SELECT max(id_com) FROM kDAbiPc3dp.components;";
+// $sql1 = "SELECT max(id_com) FROM kDAbiPc3dp.components;";
+$sql1 = "SELECT max(id_com) FROM web_maytinh.components;";
 $row = executeSingleResult($sql1);
 $id_pc = (int)$row["max(id_com)"];
 for($i=$id_pc; $i>=$id_pc-30; $i-=15) {
-    $sql = "SELECT * FROM kDAbiPc3dp.components WHERE id_com = $i;";
+    // $sql = "SELECT name_com, img_com, price_com FROM kDAbiPc3dp.components WHERE id_com = $i;";
+    $sql = "SELECT name_com, img_com, price_com FROM web_maytinh.components WHERE id_com = $i;";
     $pc = executeSingleResult($sql);
     // var_dump($pc);
 ?>
@@ -352,11 +407,13 @@ for($i=$id_pc; $i>=$id_pc-30; $i-=15) {
                         <a href="shop.php?action=20" class="wid-view-more">Xem tất cả</a>
 <?php   
 require_once('dbhelp.php');
-$sql1 = "SELECT max(id_acc) FROM kDAbiPc3dp.accessories;";
+// $sql1 = "SELECT max(id_acc) FROM kDAbiPc3dp.accessories;";
+$sql1 = "SELECT max(id_acc) FROM web_maytinh.accessories;";
 $row = executeSingleResult($sql1);
 $id_pc = (int)$row["max(id_acc)"];
 for($i=$id_pc; $i>=$id_pc-30; $i-=15) {
-    $sql = "SELECT * FROM kDAbiPc3dp.accessories WHERE id_acc = $i;";
+    // $sql = "SELECT name_acc, img_acc, price_acc FROM kDAbiPc3dp.accessories WHERE id_acc = $i;";
+    $sql = "SELECT name_acc, img_acc, price_acc FROM web_maytinh.accessories WHERE id_acc = $i;";
     $pc = executeSingleResult($sql);
     // var_dump($pc);
 ?>
