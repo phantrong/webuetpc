@@ -41,6 +41,37 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        .thead-dark {
+            color: #fff !important;
+            background-color: #343a40 !important;
+            border-color: #454d55 !important;
+        }
+        .table thead th {
+            vertical-align: bottom !important;
+            border-bottom: 2px solid #dee2e6 !important;
+        }
+        .table th, .table td {
+            padding: 0.75rem !important;
+            vertical-align: top !important;
+            border-top: 1px solid #dee2e6 !important;
+        }
+        .table body{
+            font-family: "Nunito", sans-serif !important;
+            font-size: 0.9rem !important;
+            font-weight: 400 !important;
+            line-height: 1.6 !important;
+            color: #212529 !important;
+            text-align: center !important;
+        }
+        .price {
+            color: #ee5057;
+        }
+        .remove {
+            position: absolute;
+            top: 75px;
+        }
+    </style>
   </head>
   <body>
   <div class="header-area">
@@ -226,7 +257,7 @@ if (isset($_GET['action'])) {
 // var_dump($_SESSION['cart']); exit;
 if ($_SESSION['cart'] == array()) { ?>
     <div style="text-align: center; height: 500px;">
-            <img src="img/cancel.png" style="max-height: 150px">
+            <img src="img/not.png" style="max-height: 150px; margin-bottom: 20px">
             <h1>Bạn chưa mua sản phẩm nào!</h1>
             <a href="shop.php?action=1" style="color: white">
                 <button style="background-color: rgb(52, 207, 86);border-radius: 20px; border-color: white;  width: 100px;text-align: center;height: 40px;position: relative;">
@@ -236,15 +267,15 @@ if ($_SESSION['cart'] == array()) { ?>
     </div>
 <?php
 }else { ?>
-                                <table cellspacing="0" class="shop_table cart">
-                                    <thead>
+                                <table class="table">
+                                    <thead class="thead-dark">
                                         <tr>
-                                            <th class="product-remove">&nbsp;</th>
-                                            <th class="product-thumbnail">Sản Phẩm</th>
-                                            <th class="product-name">Tên</th>
+                                            <th >&nbsp;</th>
+                                            <th >Sản Phẩm</th>
+                                            <th >Tên</th>
                                             <th class="product-price">Giá</th>
-                                            <th class="product-quantity">Số lượng</th>
-                                            <th class="product-subtotal">Tổng</th>
+                                            <th >SL</th>
+                                            <th >Tổng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -257,14 +288,14 @@ if ($_SESSION['cart'] == array()) { ?>
             $row = executeSingleResult($sql);
 ?>
             <tr>
-                <th class="product-remove">
+                <th style="position: relative;">
                     <a title="Remove this item" class="remove" href="cart.php?action=delete&id_pc=<?=$row['id_pc']?>">×</a> 
                 </th>
-                <th class="product-thumbnail"><img src="<?=$row['img_pc']?>"></th>
-                <th class="product-name"><?=$row['name_pc']?></th>
-                <th class="product-price"><?=number_format($row['price_pc'])?></th>
-                <th class="product-quantity"><input style="max-width: 50px" type="number" size="1" class="input-text qty text" title="Qty" value="<?=$_SESSION["cart"][$row['id_pc']]?>" name = "quantity[<?=$row['id_pc']?>]" min="0" step="1"></th>
-                <th class="product-subtotal"><?=number_format($row['price_pc'] * $_SESSION["cart"][$row['id_pc']])?></th>
+                <th ><img src="<?=$row['img_pc']?>" style="max-width: 200px; max-height: 200px"></th>
+                <th ><?=$row['name_pc']?></th>
+                <th class='price'><?=number_format($row['price_pc'])?> VNĐ</th>
+                <th ><input style="max-width: 50px" type="number" size="1" class="input-text qty text" title="Qty" value="<?=$_SESSION["cart"][$row['id_pc']]?>" name = "quantity[<?=$row['id_pc']?>]" min="0" step="1"></th>
+                <th class='price'><?=number_format($row['price_pc'] * $_SESSION["cart"][$row['id_pc']])?> VNĐ</th>
             </tr>
 <?php
             $total +=  $row['price_pc'] * $_SESSION["cart"][$row['id_pc']];
@@ -275,14 +306,14 @@ if ($_SESSION['cart'] == array()) { ?>
             $row = executeSingleResult($sql);
 ?>
             <tr>
-                <th class="product-remove">
+                <th style="position: relative;">
                     <a title="Remove this item" class="remove" href="cart.php?action=delete&id_pc=<?=$row['id_acc']?>">×</a> 
                 </th>
-                <th class="product-thumbnail"><img src="<?=$row['img_acc']?>"></th>
-                <th class="product-name"><?=$row['name_acc']?></th>
-                <th class="product-price"><?=number_format($row['price_acc'])?></th>
-                <th class="product-quantity"><input style="max-width: 50px" type="number" size="1" class="input-text qty text" title="Qty" value="<?=$_SESSION["cart"][$row['id_acc']]?>" name = "quantity[<?=$row['id_acc']?>]" min="0" step="1"></th>
-                <th class="product-subtotal"><?=number_format($row['price_acc'] * $_SESSION["cart"][$row['id_acc']])?></th>
+                <th><img src="<?=$row['img_acc']?>"style="max-width: 200px; max-height: 200px"></th>
+                <th ><?=$row['name_acc']?></th>
+                <th class='price'><?=number_format($row['price_acc'])?> VNĐ</th>
+                <th ><input style="max-width: 50px" type="number" size="1" class="input-text qty text" title="Qty" value="<?=$_SESSION["cart"][$row['id_acc']]?>" name = "quantity[<?=$row['id_acc']?>]" min="0" step="1"></th>
+                <th class='price'><?=number_format($row['price_acc'] * $_SESSION["cart"][$row['id_acc']])?> VNĐ</th>
             </tr>
 <?php
             $total +=  $row['price_acc'] * $_SESSION["cart"][$row['id_acc']];
@@ -295,14 +326,14 @@ if ($_SESSION['cart'] == array()) { ?>
             // var_dump($row); exit;
 ?>
             <tr>
-                <th class="product-remove">
+                <th style="position: relative;">
                     <a title="Remove this item" class="remove" href="cart.php?action=delete&id_pc=<?=$row['id_com']?>">×</a> 
                 </th>
-                <th class="product-thumbnail"><img src="<?=$row['img_com']?>"></th>
-                <th class="product-name"><?=$row['name_com']?></th>
-                <th class="product-price"><?=number_format($row['price_com'])?></th>
-                <th class="product-quantity"><input style="max-width: 50px" type="number" size="1" class="input-text qty text" title="Qty" value="<?=$_SESSION["cart"][$row['id_com']]?>" name = "quantity[<?=$row['id_com']?>]" min="0" step="1"></th>
-                <th class="product-subtotal"><?=number_format($row['price_com'] * $_SESSION["cart"][$row['id_com']])?></th>
+                <th ><img src="<?=$row['img_com']?>" style="max-width: 200px; max-height: 200px"></th>
+                <th ><?=$row['name_com']?></th>
+                <th class='price'><?=number_format($row['price_com'])?> VNĐ</th>
+                <th ><input style="max-width: 50px" type="number" size="1" class="input-text qty text" title="Qty" value="<?=$_SESSION["cart"][$row['id_com']]?>" name = "quantity[<?=$row['id_com']?>]" min="0" step="1"></th>
+                <th class='price'><?=number_format($row['price_com'] * $_SESSION["cart"][$row['id_com']])?> VNĐ</th>
             </tr>
 <?php
             $total +=  $row['price_com'] * $_SESSION["cart"][$row['id_com']];
@@ -313,7 +344,7 @@ if ($_SESSION['cart'] == array()) { ?>
 ?>
                                         <tr>
                                             <td class="actions" colspan="6">
-                                                <input value="Cập Nhật" type = "submit" name = "update-click" class="button" style="margin-left: 500px">
+                                                <input value="Cập Nhật" type = "submit" name = "update-click" class="button" style="margin-left: 700px">
                                             </td>
                                         </tr>
                                     </tbody>

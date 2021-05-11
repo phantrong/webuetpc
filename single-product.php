@@ -4,12 +4,12 @@
     $url = getCurrentPageURL();
     // var_dump($url); exit;
     // $url = getCurrentPageURL();
-    // var_dump(empty($_SESSION['login'])); exit;
+    // var_dump(empty($_SESSION['login']['user'])); exit;
     date_default_timezone_set('Asia/Ho_Chi_Minh');
     // date(format, timestamp);
     // echo date('d-m-Y H:i:s'); exit;
     // $_POST = array();
-    // var_dump($_POST); exit;
+    // var_dump(empty($_SESSION['login']));
     // $id_cus = $name_cus = $phone_cus =$address_cus = $user_cus = $pass_cus = '';
     if(!empty($_SESSION['login']['user'])) {
         $id_cus = (int) $_SESSION['login']['user']['id_cus'];
@@ -474,10 +474,9 @@ if(!empty($_GET)) {
                                 </a>
                             </li>
                     </form>
-                    <form method="POST" action="" style="margin-left: 75px;" class="form-reply" hidden="true">
 <?php
 if(isset($_POST['rep_click'])) {
-    if(empty($_SESSION['login'])) {
+    if(empty($_SESSION['login']['user'])) {
         // var_dump("ok"); exit;
         echo '<h6 style="color: red;">Bạn chưa đăng nhập!</h6>';
     }
@@ -496,10 +495,11 @@ if(isset($_POST['rep_click'])) {
     }
 }
 ?>
+                    <form method="POST" action="" style="margin-left: 75px;" class="form-reply" hidden="true">
                         <div style="height: 60px;">
                             <div class="form-info" style="float: left; margin-right: 10px;">
                                 <img src="img/avatar.png" style="max-width: 65px;">
-                                <div class="name-info" style="max-width: 50px;"><?=$user_cus?></div>
+                                <div class="name-info" style="max-width: 50px;"><?=isset($user_cus) ?$user_cus : "" ?></div>
                             </div>
                             <div>
                                 <textarea name="content_rep" rows="2" style="width: 550px;" placeholder="Viết câu phản hồi..."></textarea>
@@ -601,7 +601,7 @@ if(isset($_POST['rep_click'])) {
 }else {
 ?>
     <div style="text-align: center; height: 500px;">
-            <img src="img/cancel.png" style="max-height: 150px">
+            <img src="img/not.png" style="max-height: 150px; margin-bottom: 20px">
             <h1>Bạn Chưa Chọn Sản Phẩm Nào Cả!</h1>
             <a href="shop.php?action=1" style="color: white">
                 <button style="background-color: rgb(52, 207, 86);border-radius: 20px; border-color: white;  width: 100px;text-align: center;height: 40px;position: relative;">

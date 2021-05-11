@@ -119,19 +119,48 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bieudo.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="fonts/fontawesome-free-5.15.2-web/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        .thead-dark {
+            color: #fff !important;
+            background-color: #343a40 !important;
+            border-color: #454d55 !important;
+        }
+        .table thead th {
+            vertical-align: bottom !important;
+            border-bottom: 2px solid #dee2e6 !important;
+        }
+        .table th, .table td {
+            padding: 0.75rem !important;
+            vertical-align: top !important;
+            border-top: 1px solid #dee2e6 !important;
+        }
+        .table body{
+            font-family: "Nunito", sans-serif !important;
+            font-size: 0.9rem !important;
+            font-weight: 400 !important;
+            line-height: 1.6 !important;
+            color: #212529 !important;
+            text-align: center !important;
+        }
+    </style>
   </head>
   <body>
   <div class="header-area">
@@ -217,7 +246,7 @@
             </div>
         </div>
     </div>
-    <div class="grid">
+    <div class="grid" style="width: 1400px;">
             <div class="grid__row app__contet">
                 <div class="grid__column-2" style="z-index: 2;">
                  <nav class="category">
@@ -374,16 +403,16 @@
 <?php }
 ?>
                         <div class="grid__row" style="margin-left: 15px; margin-top: 20px">
-                            <table cellspacing="0" class="shop_table cart">
-                                <thead>
+                            <table class="table">
+                                <thead class="thead-dark">
 <?php
     if ($ac == 0) { ?>
                                     <tr>
-                                        <th class="product-name">STT</th>
-                                        <th class="product-thumbnail">Sản Phẩm</th>
-                                        <th class="product-name">Tên Sản Phẩm</th>
-                                        <th class="product-price">Đơn Giá Sản Phẩm</th>
-                                        <th class="product-quantity">SL đã được bán</th> 
+                                        <th>STT</th>
+                                        <th>Sản Phẩm</th>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Đơn Giá</th>
+                                        <th>SL đã được bán</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -416,21 +445,21 @@
             }
 ?>
                                     <tr>
-                                        <th class="product-name"><?=$i+1?></th>
-                                        <th class="product-thumbnail"><img src="<?=$img?>" style="max-height: 200px"></th>
-                                        <th class="product-name"><?=$name?></th>
-                                        <th class="product-price"><?=number_format($price)?></th>   
-                                        <th class="product-quantity"><?=$s_quantity?></th>
+                                        <th><?=$i+1?></th>
+                                        <th><img src="<?=$img?>" style="max-height: 200px"></th>
+                                        <th><?=$name?></th>
+                                        <th><?=number_format($price)?></th>   
+                                        <th><?=$s_quantity?></th>
                                     </tr>
 <?php
         }
     }elseif ($ac == 2) { ?>
                                     <tr>
-                                        <th class="product-name">STT</th>
-                                        <th class="product-thumbnail">Sản Phẩm</th>
-                                        <th class="product-name">Tên Sản Phẩm</th>
-                                        <th class="product-price">Đơn Giá Sản Phẩm</th>
-                                        <th class="product-quantity">SL Trong Kho</th> 
+                                        <th>STT</th>
+                                        <th>Sản Phẩm</th>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Đơn Giá</th>
+                                        <th>SL Trong Kho</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -447,11 +476,11 @@
                 $quantity = $arr['quantity_pc'];
 ?>
 <tr>
-                                        <th class="product-name"><?=$i+1?></th>
-                                        <th class="product-thumbnail"><img src="<?=$img?>" style="max-height: 200px"></th>
-                                        <th class="product-name"><?=$name?></th>
-                                        <th class="product-price"><?=number_format($price)?></th>   
-                                        <th class="product-quantity"><?=$quantity?></th>
+                                        <th><?=$i+1?></th>
+                                        <th><img src="<?=$img?>" style="max-height: 200px"></th>
+                                        <th><?=$name?></th>
+                                        <th><?=number_format($price)?></th>   
+                                        <th><?=$quantity?></th>
                                     </tr>
 <?php
             }
@@ -467,11 +496,11 @@
                 $quantity = $arr['quantity_acc'];
 ?>
 <tr>
-                                        <th class="product-name"><?=$i+1?></th>
-                                        <th class="product-thumbnail"><img src="<?=$img?>" style="max-height: 200px"></th>
-                                        <th class="product-name"><?=$name?></th>
-                                        <th class="product-price"><?=number_format($price)?></th>   
-                                        <th class="product-quantity"><?=$quantity?></th>
+                                        <th><?=$i+1?></th>
+                                        <th><img src="<?=$img?>" style="max-width: 200px"></th>
+                                        <th ><?=$name?></th>
+                                        <th ><?=number_format($price)?></th>   
+                                        <th ><?=$quantity?></th>
                                     </tr>
 <?php
             }
@@ -487,26 +516,26 @@
                 $quantity = $arr['quantity_com'];
 ?>
 <tr>
-                                        <th class="product-name"><?=$i+1?></th>
-                                        <th class="product-thumbnail"><img src="<?=$img?>" style="max-height: 200px"></th>
-                                        <th class="product-name"><?=$name?></th>
-                                        <th class="product-price"><?=number_format($price)?></th>   
-                                        <th class="product-quantity"><?=$quantity?></th>
+                                        <th ><?=$i+1?></th>
+                                        <th ><img src="<?=$img?>" style="max-height: 200px"></th>
+                                        <th ><?=$name?></th>
+                                        <th ><?=number_format($price)?></th>   
+                                        <th ><?=$quantity?></th>
                                     </tr>
 <?php
             }
         }
     }elseif ($ac == 3) { ?>
                                     <tr>
-                                        <th class="product-name">STT</th>
-                                        <th class="product-thumbnail">Mã Hóa Đơn</th>
-                                        <th class="product-name">Tên Người Dùng</th>
-                                        <th class="product-price">SĐT Người Dùng</th>
-                                        <th class="product-quantity">Ngày Đặt</th>
-                                        <th class="product-quantity">Ngày Giao</th>
-                                        <th class="product-quantity">Trạng Thái</th>
-                                        <th class="product-quantity">Ghi Chú</th>
-                                        <th class="product-quantity">&nbsp;</th>
+                                        <th >STT</th>
+                                        <th >Mã HĐ</th>
+                                        <th >Tên Người Dùng</th>
+                                        <th >SĐT Người Dùng</th>
+                                        <th >Ngày Đặt</th>
+                                        <th >Ngày Giao</th>
+                                        <th >Trạng Thái</th>
+                                        <th >Ghi Chú</th>
+                                        <th >&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -524,19 +553,24 @@
             $cmt = $arr['comments'];
 ?>
                                     <tr>
-                                        <th class="product-name"><?=$i+1?></th>
-                                        <th class="product-thumbnail"><?=$id?></th>
-                                        <th class="product-name"><?=$name?></th>
-                                        <th class="product-price"><?=$phone?></th>   
-                                        <th class="product-quantity"><?=$date?></th>
+                                        <th ><?=$i+1?></th>
+                                        <th ><?=$id?></th>
+                                        <th ><?=$name?></th>
+                                        <th ><?=$phone?></th>   
+                                        <th ><?=$date?></th>
                                         <form method="POST">
-                                            <th class="product-quantity"><input type="datetime-local" name='ship_ord' style="width: 200px"></th>
-                                            <th>
-                                            <input type="radio" name="status" value="Shipping" checked>Shipping
-                                            <br>
-                                            <input type="radio" name="status" value="Shipped">Shipped
+                                            <th ><input type="datetime-local" name='ship_ord' style="width: 140px"></th>
+                                            <th style="width: 100px;">
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="radio1">
+                                                    <input type="radio" class="form-check-input" name="status" value="Shipping" checked>Shipping
+                                                </label>
+                                                <label class="form-check-label" for="radio2">
+                                                    <input type="radio" class="form-check-input" name="status" value="Shipped">Shipped
+                                                </label>
+                                            </div>
                                             </th>
-                                            <th><input type="text" name="cmt" value="<?=$cmt?>"></th>
+                                            <th><input type="text" name="cmt" value="<?=$cmt?>" placeholder="Chưa có ghi chú"></th>
                                             <th><button name="save" value="<?=$id?>" style="border: none;"><img src="img/updated.png" style="max-width: 30px"></button></th>
                                         </form>
                                     </tr>
@@ -544,15 +578,15 @@
         }
     }elseif ($ac == 4) { ?>
                                     <tr>
-                                        <th class="product-name">STT</th>
-                                        <th class="product-thumbnail">Mã Hóa Đơn</th>
-                                        <th class="product-name">Tên Người Dùng</th>
-                                        <th class="product-price">SĐT Người Dùng</th>
-                                        <th class="product-quantity">Ngày Đặt</th>
-                                        <th class="product-quantity">Ngày Giao</th>
-                                        <th class="product-quantity">Trạng Thái</th>
-                                        <th class="product-quantity">Ghi Chú</th>
-                                        <th class="product-quantity">&nbsp;</th>
+                                        <th>STT</th>
+                                        <th>Mã Hóa Đơn</th>
+                                        <th >Tên Người Dùng</th>
+                                        <th >SĐT Người Dùng</th>
+                                        <th >Ngày Đặt</th>
+                                        <th>Ngày Giao</th>
+                                        <th >Trạng Thái</th>
+                                        <th >Ghi Chú</th>
+                                        <th >&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -571,19 +605,24 @@
             $cmt = $arr['comments'];
         ?>
                                 <tr>
-                                    <th class="product-name"><?=$i+1?></th>
-                                    <th class="product-thumbnail"><?=$id?></th>
-                                    <th class="product-name"><?=$name?></th>
-                                    <th class="product-price"><?=$phone?></th>   
-                                    <th class="product-quantity"><?=$date?></th>
-                                    <th class="product-quantity"><?=$ship?></th>
+                                    <th ><?=$i+1?></th>
+                                    <th ><?=$id?></th>
+                                    <th><?=$name?></th>
+                                    <th ><?=$phone?></th>   
+                                    <th ><?=$date?></th>
+                                    <th ><?=$ship?></th>
                                     <form method="POST">
-                                        <th>
-                                            <input type="radio" name="status" value="Shipping">Shipping
-                                            <br>
-                                            <input type="radio" name="status" value="Shipped" checked>Shipped
+                                        <th style="width: 100px;">
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="radio1">
+                                                    <input type="radio" class="form-check-input" name="status" value="Shipping" >Shipping
+                                                </label>
+                                                <label class="form-check-label" for="radio2">
+                                                    <input type="radio" class="form-check-input" name="status" value="Shipped" checked>Shipped
+                                                </label>
+                                            </div>
                                         </th>
-                                        <th><input type="text" name="cmt" value="<?=$cmt?>"></th>
+                                        <th><input type="text" name="cmt" value="<?=$cmt?>" placeholder="Chưa có ghi chú"></th>
                                         <th><button name="save" value="<?=$id?>" style="border: none;"><img src="img/updated.png" style="max-width: 30px"></button></th>
                                     </form>
                                 </tr>
@@ -591,15 +630,15 @@
         }
     }elseif ($ac == 5) { ?>
                                 <tr>
-                                    <th class="product-name">STT</th>
-                                    <th class="product-thumbnail">Mã Hóa Đơn</th>
-                                    <th class="product-name">Tên Người Dùng</th>
+                                    <th >STT</th>
+                                    <th>Mã Hóa Đơn</th>
+                                    <th>Tên Người Dùng</th>
                                     <th class="product-price">SĐT Người Dùng</th>
-                                    <th class="product-quantity">Ngày Đặt</th>
-                                    <th class="product-quantity">Số ngày Chưa Giao</th>
-                                    <th class="product-quantity">Trạng Thái</th>
-                                    <th class="product-quantity">Ghi Chú</th>
-                                    <th class="product-quantity">&nbsp;</th>
+                                    <th>Ngày Đặt</th>
+                                    <th>Số ngày Chưa Giao</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Ghi Chú</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -618,15 +657,24 @@
             $cmt = $arr['comments'];
 ?>
                                 <tr>
-                                    <th class="product-name"><?=$i+1?></th>
-                                    <th class="product-thumbnail"><?=$id?></th>
-                                    <th class="product-name"><?=$name?></th>
+                                    <th><?=$i+1?></th>
+                                    <th><?=$id?></th>
+                                    <th><?=$name?></th>
                                     <th class="product-price"><?=$phone?></th>   
-                                    <th class="product-quantity"><?=$date?></th>
-                                    <th class="product-quantity"><?=$left_day?></th>
+                                    <th><?=$date?></th>
+                                    <th><?=$left_day?></th>
                                     <form method="POST">
-                                        <th><input type="text" name="stt" value="<?=$stt?>" style="max-width: 100px"></th>
-                                        <th><input type="text" name="cmt" value="<?=$cmt?>"></th>
+                                        <th style="width: 100px;">
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="radio1">
+                                                    <input type="radio" class="form-check-input" name="status" value="Shipping" checked>Shipping
+                                                </label>
+                                                <label class="form-check-label" for="radio2">
+                                                    <input type="radio" class="form-check-input" name="status" value="Shipped">Shipped
+                                                </label>
+                                            </div>
+                                        </th>
+                                        <th><input type="text" name="cmt" value="<?=$cmt?>" placeholder="Chưa có ghi chú"></th>
                                         <th><button name="save" value="<?=$id?>" style="border: none;"><img src="img/updated.png" style="max-width: 30px"></button></th>
                                     </form>
                                 </tr>
@@ -634,12 +682,12 @@
         }
     }elseif ($ac == 6) { ?>
                                 <tr>
-                                    <th class="product-name">STT</th>
-                                    <th class="product-thumbnail">Tài Khoản Bình LUận</th>
-                                    <th class="product-name">Nội Dung Bình Luận</th>
+                                    <th>STT</th>
+                                    <th>Tài Khoản Bình LUận</th>
+                                    <th>Nội Dung Bình Luận</th>
                                     <th class="product-price">Thời Gian Bình Luận</th>
-                                    <th class="product-quantity">Mã Sản Phẩm</th>
-                                    <th class="product-quantity">&nbsp;</th>
+                                    <th>Mã Sản Phẩm</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -656,11 +704,11 @@
             $time = $arr['time_cmt'];
 ?>
                                 <tr>
-                                    <th class="product-name"><?=$i+1?></th>
-                                    <th class="product-thumbnail"><?=$user?></th>
-                                    <th class="product-name"><?=$content?></th>
+                                    <th><?=$i+1?></th>
+                                    <th><?=$user?></th>
+                                    <th><?=$content?></th>
                                     <th class="product-price"><?=$time?></th>   
-                                    <th class="product-quantity"><?=$id_pro?></th>
+                                    <th><?=$id_pro?></th>
                                     <form method="POST">
                                         <th><button name="delete_cmt" value="<?=$id_cmt?>" style="border: none;"><img src="img/remove.png" style="max-width: 30px"></button></th>
                                     </form>
@@ -669,12 +717,12 @@
         }
     }elseif ($ac == 7) { ?>
                                 <tr>
-                                    <th class="product-name">STT</th>
-                                    <th class="product-thumbnail">Tài Khoản Phản Hồi</th>
-                                    <th class="product-name">Nội Dung Phản Hồi</th>
+                                    <th>STT</th>
+                                    <th>Tài Khoản Phản Hồi</th>
+                                    <th>Nội Dung Phản Hồi</th>
                                     <th class="product-price">Thời Gian Phản Hồi</th>
-                                    <th class="product-quantity">Nội Dung Câu BL</th>
-                                    <th class="product-quantity">&nbsp;</th>
+                                    <th>Nội Dung Câu BL</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -691,11 +739,11 @@
             $time = $arr['time_rep'];
 ?>
                                 <tr>
-                                    <th class="product-name"><?=$i+1?></th>
-                                    <th class="product-thumbnail"><?=$user?></th>
-                                    <th class="product-name"><?=$content?></th>
+                                    <th><?=$i+1?></th>
+                                    <th><?=$user?></th>
+                                    <th><?=$content?></th>
                                     <th class="product-price"><?=$time?></th>   
-                                    <th class="product-quantity"><?=$content_cmt?></th>
+                                    <th><?=$content_cmt?></th>
                                     <form method="POST">
                                     <th><button name="delete_rep" value="<?=$id_rep?>" style="border: none;"><img src="img/remove.png" style="max-width: 30px"></button></th>
                                     </form>
@@ -704,12 +752,12 @@
         }
     }elseif ($ac == 8) { ?>
                                 <tr>
-                                    <th class="product-name">STT</th>
-                                    <th class="product-thumbnail">Tài Khoản Bình Luận</th>
-                                    <th class="product-name">Nội Dung Bình Luận</th>
+                                    <th>STT</th>
+                                    <th>Tài Khoản Bình Luận</th>
+                                    <th>Nội Dung Bình Luận</th>
                                     <th class="product-price">Thời Gian Bình Luận</th>
-                                    <th class="product-quantity">Lượt Tương Tác</th>
-                                    <th class="product-quantity">&nbsp;</th>
+                                    <th>Lượt Tương Tác</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -726,11 +774,11 @@
             $time = $arr['time_cmt'];
 ?>
                                 <tr>
-                                    <th class="product-name"><?=$i+1?></th>
-                                    <th class="product-thumbnail"><?=$user?></th>
-                                    <th class="product-name"><?=$content?></th>
+                                    <th><?=$i+1?></th>
+                                    <th><?=$user?></th>
+                                    <th><?=$content?></th>
                                     <th class="product-price"><?=$time?></th>   
-                                    <th class="product-quantity"><?=$reps?></th>
+                                    <th ><?=$reps?></th>
                                     <form method="POST">
                                         <th><button name="delete_cmt" value="<?=$id_cmt?>" style="border: none;"><img src="img/remove.png" style="max-width: 30px"></button></th>
                                     </form>
@@ -739,14 +787,14 @@
         }
     }elseif ($ac == 9) { ?>
                                 <tr>
-                                    <th class="product-name">STT</th>
-                                    <th class="product-thumbnail">Mã Người Dùng</th>
-                                    <th class="product-name">Họ Và Tên</th>
+                                    <th>STT</th>
+                                    <th>Mã Người Dùng</th>
+                                    <th>Họ Và Tên</th>
                                     <th class="product-price">Số Điện Thoại</th>
-                                    <th class="product-quantity">Địa Chỉ</th>
-                                    <th class="product-quantity">Tài Khoản</th>
-                                    <th class="product-quantity">&nbsp;</th>
-                                    <th class="product-quantity">&nbsp;</th>
+                                    <th>Địa Chỉ</th>
+                                    <th>Tài Khoản</th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -763,8 +811,8 @@
             $add = $arr['address_cus'];
 ?>
                                 <tr>
-                                    <th class="product-name"><?=$i+1?></th>
-                                    <th class="product-thumbnail"><?=$id_cus?></th>
+                                    <th><?=$i+1?></th>
+                                    <th><?=$id_cus?></th>
                                     <form method="POST">
                                         <th><input type="text" name="name_cus" value="<?=$name?>"></th>
                                         <th><input type="text" name="phone_cus" value="<?=$phone?>" style="max-width: 120px"></th>
@@ -778,11 +826,11 @@
         }
     }elseif ($ac == 1) { ?>
                                 <tr>
-                                    <th class="product-name">STT</th>
-                                    <th class="product-thumbnail">Sản Phẩm</th>
-                                    <th class="product-name">Tên Sản Phẩm</th>
-                                    <th class="product-price">Đơn Giá Sản Phẩm</th>
-                                    <th class="product-quantity">Lượt Tương Tác</th> 
+                                    <th>STT</th>
+                                    <th>Sản Phẩm</th>
+                                    <th>Tên Sản Phẩm</th>
+                                    <th class="product-price">Đơn Giá</th>
+                                    <th>Lượt Tương Tác</th> 
                                 </tr>
                             </thead>
                             <tbody>
@@ -815,11 +863,11 @@
             }
 ?>
                                 <tr>
-                                    <th class="product-name"><?=$i+1?></th>
-                                    <th class="product-thumbnail"><img src="<?=$img?>" style="max-height: 200px"></th>
-                                    <th class="product-name"><?=$name?></th>
+                                    <th><?=$i+1?></th>
+                                    <th><img src="<?=$img?>" style="max-height: 200px"></th>
+                                    <th><?=$name?></th>
                                     <th class="product-price"><?=number_format($price)?></th>   
-                                    <th class="product-quantity"><?=$cmt?></th>
+                                    <th style="width: 150px;"><?=$cmt?></th>
                                 </tr>
 <?php
         }
@@ -1111,5 +1159,12 @@
     <!-- Main Script -->
     <script src="js/main.js"></script>
     <script src="js/shop.js"></script>
+    <script>
+        var a = document.getElementsByName('cmt');
+        console.log(a[0]);
+        // for(var i=0; i<a.length; i++) {
+            a[0].setAttribute('placeholder', 'Chưa có ghi chú');
+        // }
+    </script>
   </body>
 </html>
