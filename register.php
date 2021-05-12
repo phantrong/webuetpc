@@ -37,7 +37,7 @@ if ($sucess) {
         require_once('dbhelp.php');
         $pass_cus = password_hash($_POST['pass_cus'], PASSWORD_BCRYPT);
         // var_dump($pass_cus); exit;
-        $sql = "INSERT INTO web_maytinh.customer (name_cus, phone_cus, address_cus, user_cus, pass_cus) VALUE ('".$_POST['name_cus']."', '".$_POST['phone_cus']."', '".$_POST['address_cus']."', '".$_POST['user_cus']."', '$pass_cus')";
+        $sql = "INSERT INTO RQLtiWBNIL.customer (name_cus, phone_cus, address_cus, user_cus, pass_cus) VALUE ('".$_POST['name_cus']."', '".$_POST['phone_cus']."', '".$_POST['address_cus']."', '".$_POST['user_cus']."', '$pass_cus')";
         execute($sql);
         // unset($_POST);
 ?>

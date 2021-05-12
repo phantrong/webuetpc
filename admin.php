@@ -41,7 +41,7 @@
         $cmt1 = $_POST['cmt'];
         $ship = $_POST['ship_ord'];
         $id1 = (int) $_POST['save'];
-        $sqlz = "UPDATE web_maytinh.order SET ship_ord = '$ship', status_ord = '$stt1', comments = '$cmt1' WHERE id_ord = $id1;";
+        $sqlz = "UPDATE RQLtiWBNIL.order SET ship_ord = '$ship', status_ord = '$stt1', comments = '$cmt1' WHERE id_ord = $id1;";
         execute($sqlz);
         unset($_POST);
         // echo("<script>location.href = 'admin.php?action={$ac}';</script>");
@@ -50,7 +50,7 @@
     if (isset($_POST['save'])) {
         $cmt1 = $_POST['cmt'];
         $id1 = (int) $_POST['save'];
-        $sqlz = "UPDATE web_maytinh.order SET comments = '$cmt1' WHERE id_ord = $id1;";
+        $sqlz = "UPDATE RQLtiWBNIL.order SET comments = '$cmt1' WHERE id_ord = $id1;";
         execute($sqlz);
         unset($_POST);
         echo("<script>location.href = 'admin.php?action={$ac}';</script>");
@@ -61,7 +61,7 @@
         $phone = $_POST['phone_cus'];
         $address = $_POST['address_cus'];
         $id = (int) $_POST['save_cus'];
-        $sqlz = "UPDATE web_maytinh.customer SET name_cus = '$name', phone_cus = '$phone', address_cus = '$address' WHERE id_cus = $id;";
+        $sqlz = "UPDATE RQLtiWBNIL.customer SET name_cus = '$name', phone_cus = '$phone', address_cus = '$address' WHERE id_cus = $id;";
         execute($sqlz);
         unset($_POST);
         echo("<script>location.href = 'admin.php?action={$ac}';</script>");
@@ -69,7 +69,7 @@
     }
     if (isset($_POST['delete_cus'])) {
         $id = (int) $_POST['delete_cus'];
-        $sqlz = "DELETE FROM web_maytinh.customer WHERE id_cus = $id;";
+        $sqlz = "DELETE FROM RQLtiWBNIL.customer WHERE id_cus = $id;";
         execute($sqlz);
         unset($_POST);
         echo("<script>location.href = 'admin.php?action={$ac}';</script>");
@@ -77,7 +77,7 @@
     }
     if (isset($_POST['delete_cmt'])) {
         $id = (int) $_POST['delete_cmt'];
-        $sqlz = "DELETE FROM web_maytinh.comments WHERE id_cmt = $id;";
+        $sqlz = "DELETE FROM RQLtiWBNIL.comments WHERE id_cmt = $id;";
         execute($sqlz);
         unset($_POST);
         echo("<script>location.href = 'admin.php?action={$ac}';</script>");
@@ -85,7 +85,7 @@
     }
     if (isset($_POST['delete_rep'])) {
         $id = (int) $_POST['delete_rep'];
-        $sqlz = "DELETE FROM web_maytinh.replies WHERE id_rep = $id;";
+        $sqlz = "DELETE FROM RQLtiWBNIL.replies WHERE id_rep = $id;";
         execute($sqlz);
         unset($_POST);
         echo("<script>location.href = 'admin.php?action={$ac}';</script>");
@@ -417,7 +417,7 @@
                                 </thead>
                                 <tbody>
 <?php
-        $sql0 = "SELECT id_product, sum(quantity_pro) as s_quantity FROM web_maytinh.orderdetail GROUP BY id_product ORDER BY s_quantity DESC LIMIT $index;";
+        $sql0 = "SELECT id_product, sum(quantity_pro) as s_quantity FROM RQLtiWBNIL.orderdetail GROUP BY id_product ORDER BY s_quantity DESC LIMIT $index;";
         $list_pro0 = executeResult($sql0);
         // var_dump($list_pro0);
         foreach($list_pro0 as $i => $arr){
@@ -425,19 +425,19 @@
             $s_quantity = (int) $arr['s_quantity'];
             $name = $img = $price = '';
             if($id_pro <= 100) {
-                $sql = "SELECT name_pc, img_pc, price_pc FROM web_maytinh.computer WHERE id_pc = $id_pro";
+                $sql = "SELECT name_pc, img_pc, price_pc FROM RQLtiWBNIL.computer WHERE id_pc = $id_pro";
                 $rs = executeSingleResult($sql);
                 $name = $rs['name_pc'];
                 $img = $rs['img_pc'];
                 $price = (int) $rs['price_pc'];
             }elseif($id_pro > 100 && $id_pro <200 ) {
-                $sql = "SELECT name_acc, img_acc, price_acc FROM web_maytinh.accessories WHERE id_acc = $id_pro";
+                $sql = "SELECT name_acc, img_acc, price_acc FROM RQLtiWBNIL.accessories WHERE id_acc = $id_pro";
                 $rs = executeSingleResult($sql);
                 $name = $rs['name_acc'];
                 $img = $rs['img_acc'];
                 $price = (int) $rs['price_acc'];
             }else{
-                $sql = "SELECT name_com, img_com, price_com FROM web_maytinh.components WHERE id_com = $id_pro";
+                $sql = "SELECT name_com, img_com, price_com FROM RQLtiWBNIL.components WHERE id_com = $id_pro";
                 $rs = executeSingleResult($sql);
                 $name = $rs['name_com'];
                 $img = $rs['img_com'];
@@ -465,7 +465,7 @@
                                 <tbody>
 <?php
         if ($cc == 1) {
-            $sql0 = "SELECT id_pc, name_pc, img_pc, price_pc, quantity_pc from web_maytinh.computer order by quantity_pc desc limit $index;";
+            $sql0 = "SELECT id_pc, name_pc, img_pc, price_pc, quantity_pc from RQLtiWBNIL.computer order by quantity_pc desc limit $index;";
             $list_pro0 = executeResult($sql0);
             // var_dump($list_pro0);
             $name = $img = $price = $quantity = '';
@@ -485,7 +485,7 @@
 <?php
             }
         }elseif($cc == 2) {
-            $sql0 = "SELECT id_acc, name_acc, img_acc,price_acc,quantity_acc from web_maytinh.accessories order by quantity_acc desc limit $index;";
+            $sql0 = "SELECT id_acc, name_acc, img_acc,price_acc,quantity_acc from RQLtiWBNIL.accessories order by quantity_acc desc limit $index;";
             $list_pro0 = executeResult($sql0);
             // var_dump($list_pro0);
             $name = $img = $price = $quantity = '';
@@ -505,7 +505,7 @@
 <?php
             }
         }elseif($cc == 3) {
-            $sql0 = "SELECT id_com, name_com, img_com,price_com,quantity_com from web_maytinh.components order by quantity_com desc limit $index;";
+            $sql0 = "SELECT id_com, name_com, img_com,price_com,quantity_com from RQLtiWBNIL.components order by quantity_com desc limit $index;";
             $list_pro0 = executeResult($sql0);
             // var_dump($list_pro0);
             $name = $img = $price = $quantity = '';
@@ -540,7 +540,7 @@
                                 </thead>
                                 <tbody>
     <?php
-        $sql0 = "SELECT id_ord, name_cus, phone_cus, date_ord, status_ord, comments FROM web_maytinh.order INNER JOIN customer on order.id_cus = customer.id_cus WHERE status_ord = 'Shipping';";
+        $sql0 = "SELECT id_ord, name_cus, phone_cus, date_ord, status_ord, comments FROM RQLtiWBNIL.order INNER JOIN customer on order.id_cus = customer.id_cus WHERE status_ord = 'Shipping';";
         $list_pro0 = executeResult($sql0);
         // var_dump($list_pro0);
         $id = $name = $phone = $date = $stt = $cmt = '';
@@ -591,7 +591,7 @@
                                 </thead>
                                 <tbody>
 <?php
-        $sql0 = "SELECT id_ord, name_cus, phone_cus, date_ord, status_ord, ship_ord, comments FROM web_maytinh.order INNER JOIN customer on order.id_cus = customer.id_cus WHERE status_ord = 'Shipped';";
+        $sql0 = "SELECT id_ord, name_cus, phone_cus, date_ord, status_ord, ship_ord, comments FROM RQLtiWBNIL.order INNER JOIN customer on order.id_cus = customer.id_cus WHERE status_ord = 'Shipped';";
         $list_pro0 = executeResult($sql0);
         // var_dump($list_pro0);
         $id = $name = $phone = $date = $stt = $cmt = '';
@@ -643,7 +643,7 @@
                             </thead>
                             <tbody>
 <?php
-        $sql0 = "SELECT id_ord, name_cus, phone_cus, date_ord, status_ord, ship_ord, comments, DATEDIFF(now(), date_ord) as left_day FROM web_maytinh.order INNER JOIN customer on customer.id_cus = order.id_cus WHERE status_ord = 'Shipping' ORDER BY left_day DESC LIMIT $index;";
+        $sql0 = "SELECT id_ord, name_cus, phone_cus, date_ord, status_ord, ship_ord, comments, DATEDIFF(now(), date_ord) as left_day FROM RQLtiWBNIL.order INNER JOIN customer on customer.id_cus = order.id_cus WHERE status_ord = 'Shipping' ORDER BY left_day DESC LIMIT $index;";
         $list_pro0 = executeResult($sql0);
         // var_dump($list_pro0);
         $id = $name = $phone = $date = $stt = $cmt = $left_day = '';
@@ -692,7 +692,7 @@
                             </thead>
                             <tbody>
 <?php
-        $sql0 = "SELECT id_cmt, user_cus, content_cmt, time_cmt, id_pro FROM web_maytinh.comments INNER JOIN customer on comments.id_cus = customer.id_cus";
+        $sql0 = "SELECT id_cmt, user_cus, content_cmt, time_cmt, id_pro FROM RQLtiWBNIL.comments INNER JOIN customer on comments.id_cus = customer.id_cus";
         $list_pro0 = executeResult($sql0);
         // var_dump($list_pro0);
         $user = $content = $time = $id_pro = $id_cmt ='';
@@ -727,7 +727,7 @@
                             </thead>
                             <tbody>
 <?php
-        $sql0 = "SELECT id_rep, user_cus, content_rep, time_rep, content_cmt FROM web_maytinh.replies INNER JOIN customer on replies.id_cus = customer.id_cus INNER JOIN comments on comments.id_cmt = replies.id_cmt";
+        $sql0 = "SELECT id_rep, user_cus, content_rep, time_rep, content_cmt FROM RQLtiWBNIL.replies INNER JOIN customer on replies.id_cus = customer.id_cus INNER JOIN comments on comments.id_cmt = replies.id_cmt";
         $list_pro0 = executeResult($sql0);
         // var_dump($list_pro0);
         $user = $content = $time = $id_rep = $content_cmt ='';
@@ -762,7 +762,7 @@
                             </thead>
                             <tbody>
 <?php
-        $sql0 = "SELECT comments.id_cmt, user_cus, content_cmt, time_cmt, count(*) as reps FROM web_maytinh.comments INNER JOIN customer on customer.id_cus = comments.id_cus INNER JOIN replies on replies.id_cmt = comments.id_cmt GROUP BY id_cmt ORDER BY reps DESC LIMIT 5";
+        $sql0 = "SELECT comments.id_cmt, user_cus, content_cmt, time_cmt, count(*) as reps FROM RQLtiWBNIL.comments INNER JOIN customer on customer.id_cus = comments.id_cus INNER JOIN replies on replies.id_cmt = comments.id_cmt GROUP BY id_cmt ORDER BY reps DESC LIMIT 5";
         $list_pro0 = executeResult($sql0);
         // var_dump($list_pro0);
         $user = $content = $time = $id_cmt = $reps ='';
@@ -799,7 +799,7 @@
                             </thead>
                             <tbody>
 <?php
-        $sql0 = "SELECT id_cus, name_cus, phone_cus, address_cus, user_cus FROM web_maytinh.customer;";
+        $sql0 = "SELECT id_cus, name_cus, phone_cus, address_cus, user_cus FROM RQLtiWBNIL.customer;";
         $list_pro0 = executeResult($sql0);
         // var_dump($list_pro0);
         $user = $name = $phone = $id_cus = $add ='';
@@ -835,7 +835,7 @@
                             </thead>
                             <tbody>
 <?php
-        $sql0 = "SELECT id_pro,  count(*) as cmt FROM web_maytinh.comments GROUP BY id_pro ORDER BY cmt DESC LIMIT $index;";
+        $sql0 = "SELECT id_pro,  count(*) as cmt FROM RQLtiWBNIL.comments GROUP BY id_pro ORDER BY cmt DESC LIMIT $index;";
         $list_pro0 = executeResult($sql0);
         // var_dump($list_pro0);
         foreach($list_pro0 as $i => $arr){
@@ -843,19 +843,19 @@
             $cmt = (int) $arr['cmt'];
             $name = $img = $price = '';
             if($id_pro <= 100) {
-                $sql = "SELECT name_pc, img_pc, price_pc FROM web_maytinh.computer WHERE id_pc = $id_pro";
+                $sql = "SELECT name_pc, img_pc, price_pc FROM RQLtiWBNIL.computer WHERE id_pc = $id_pro";
                 $rs = executeSingleResult($sql);
                 $name = $rs['name_pc'];
                 $img = $rs['img_pc'];
                 $price = (int) $rs['price_pc'];
             }elseif($id_pro > 100 && $id_pro <200 ) {
-                $sql = "SELECT name_acc, img_acc, price_acc FROM web_maytinh.accessories WHERE id_acc = $id_pro";
+                $sql = "SELECT name_acc, img_acc, price_acc FROM RQLtiWBNIL.accessories WHERE id_acc = $id_pro";
                 $rs = executeSingleResult($sql);
                 $name = $rs['name_acc'];
                 $img = $rs['img_acc'];
                 $price = (int) $rs['price_acc'];
             }else{
-                $sql = "SELECT name_com, img_com, price_com FROM web_maytinh.components WHERE id_com = $id_pro";
+                $sql = "SELECT name_com, img_com, price_com FROM RQLtiWBNIL.components WHERE id_com = $id_pro";
                 $rs = executeSingleResult($sql);
                 $name = $rs['name_com'];
                 $img = $rs['img_com'];
@@ -877,8 +877,8 @@
     $sumrsday = 0;
     $rsdaypc = array();
     for ($i = 2; $i<=8; $i++) {
-        $sqlday[$i] = "SELECT sum(total_pro) as day from web_maytinh.orderdetail od where id_ord in
-        (select id_ord from web_maytinh.order where year(date_ord) = year(now()) and month(date_ord) = month(now()) and dayofweek(date_ord) = $i)";
+        $sqlday[$i] = "SELECT sum(total_pro) as day from RQLtiWBNIL.orderdetail od where id_ord in
+        (select id_ord from RQLtiWBNIL.order where year(date_ord) = year(now()) and month(date_ord) = month(now()) and dayofweek(date_ord) = $i)";
         $day[$i] = executeSingleResult($sqlday[$i]);
         if ($day[$i]['day'] == NULL) {
             $rsday[$i] = 0;
@@ -899,14 +899,14 @@
     $rsweek = array();
     $sumrsweek = 0;
     $rsweekpc = array();
-    $sqlweek[0] = "SELECT sum(total_pro) as week from web_maytinh.orderdetail od where id_ord in
-    (select id_ord from web_maytinh.order where year(date_ord) = year(now()) and month(date_ord) = month(now()) and day(date_ord) between 1 and 7)";
-    $sqlweek[1] = "SELECT sum(total_pro) as week from web_maytinh.orderdetail od where id_ord in
-    (select id_ord from web_maytinh.order where year(date_ord) = year(now()) and month(date_ord) = month(now()) and day(date_ord) between 8 and 14)";
-    $sqlweek[2] = "SELECT sum(total_pro) as week from web_maytinh.orderdetail od where id_ord in
-    (select id_ord from web_maytinh.order where year(date_ord) = year(now()) and month(date_ord) = month(now()) and day(date_ord) between 15 and 21)";
-    $sqlweek[3] = "SELECT sum(total_pro) as week from web_maytinh.orderdetail od where id_ord in
-    (select id_ord from web_maytinh.order where year(date_ord) = year(now()) and month(date_ord) = month(now()) and day(date_ord) between 22 and 31)";
+    $sqlweek[0] = "SELECT sum(total_pro) as week from RQLtiWBNIL.orderdetail od where id_ord in
+    (select id_ord from RQLtiWBNIL.order where year(date_ord) = year(now()) and month(date_ord) = month(now()) and day(date_ord) between 1 and 7)";
+    $sqlweek[1] = "SELECT sum(total_pro) as week from RQLtiWBNIL.orderdetail od where id_ord in
+    (select id_ord from RQLtiWBNIL.order where year(date_ord) = year(now()) and month(date_ord) = month(now()) and day(date_ord) between 8 and 14)";
+    $sqlweek[2] = "SELECT sum(total_pro) as week from RQLtiWBNIL.orderdetail od where id_ord in
+    (select id_ord from RQLtiWBNIL.order where year(date_ord) = year(now()) and month(date_ord) = month(now()) and day(date_ord) between 15 and 21)";
+    $sqlweek[3] = "SELECT sum(total_pro) as week from RQLtiWBNIL.orderdetail od where id_ord in
+    (select id_ord from RQLtiWBNIL.order where year(date_ord) = year(now()) and month(date_ord) = month(now()) and day(date_ord) between 22 and 31)";
     for ($i = 0; $i<4; $i++) {
         $week[$i] = executeSingleResult($sqlweek[$i]);
         if ($week[$i]['week'] == NULL) {
@@ -930,8 +930,8 @@
     $sumrsyear = 0;
     $rsyearpc = array();
     for ($i = 1; $i<=12; $i++) {
-        $sqlyear[$i] = "SELECT sum(total_pro) as year from web_maytinh.orderdetail od where id_ord in
-        (select id_ord from web_maytinh.order where year(date_ord) = year(now()) and month(date_ord) = $i)";
+        $sqlyear[$i] = "SELECT sum(total_pro) as year from RQLtiWBNIL.orderdetail od where id_ord in
+        (select id_ord from RQLtiWBNIL.order where year(date_ord) = year(now()) and month(date_ord) = $i)";
         $year[$i] = executeSingleResult($sqlyear[$i]);
         if ($year[$i]['year'] == NULL) {
             $rsyear[$i] = 0;

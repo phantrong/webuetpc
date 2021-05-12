@@ -106,7 +106,7 @@
                 }
                 if ($error == false && !empty($quantity_ord)) {
                     $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
-                    $sql2 = "INSERT INTO web_maytinh.order (date_ord, status_ord, comments, id_cus) VALUE (now(), 'Shipping', ' ',  '$id_cus')";
+                    $sql2 = "INSERT INTO RQLtiWBNIL.order (date_ord, status_ord, comments, id_cus) VALUE (now(), 'Shipping', ' ',  '$id_cus')";
                     mysqli_query($conn, $sql2);
                     $id_ord = $conn->insert_id;
                     mysqli_close($conn);
@@ -132,7 +132,7 @@
                             $sqlz = "UPDATE components SET quantity_com = $quan_pro WHERE id_com = $index;";
                             execute($sqlz);
                         }
-                        $sql3 = "INSERT INTO web_maytinh.orderdetail (id_ord, id_product, quantity_pro, total_pro) VALUE ('$id_ord', '$index', '$quantity', '$total_pro')";
+                        $sql3 = "INSERT INTO RQLtiWBNIL.orderdetail (id_ord, id_product, quantity_pro, total_pro) VALUE ('$id_ord', '$index', '$quantity', '$total_pro')";
                         execute($sql3);
                     }
                     $success = "Đặt hàng thành công!";
@@ -311,7 +311,7 @@ if (!isset($_SESSION['cart'])) {
 }
 foreach($_SESSION["cart"] as $index => $quan) {
     if($index < 100) {
-        $sql = "SELECT id_pc, img_pc, name_pc, price_pc FROM web_maytinh.computer WHERE id_pc = $index";
+        $sql = "SELECT id_pc, img_pc, name_pc, price_pc FROM RQLtiWBNIL.computer WHERE id_pc = $index";
         $row = executeSingleResult($sql);
         $quantity += $quan;
         $_SESSION['form']['price'][$index] = (int) $row['price_pc'];
@@ -324,7 +324,7 @@ foreach($_SESSION["cart"] as $index => $quan) {
                                          </tr>
 <?php
     } elseif ($index > 100 && $index <= 200) {
-        $sql = "SELECT id_acc, img_acc, name_acc, price_acc FROM web_maytinh.accessories WHERE id_acc = $index";
+        $sql = "SELECT id_acc, img_acc, name_acc, price_acc FROM RQLtiWBNIL.accessories WHERE id_acc = $index";
         $row = executeSingleResult($sql);
         $quantity += $quan;
         $_SESSION['form']['price'][$index] = (int) $row['price_acc'];
@@ -337,7 +337,7 @@ foreach($_SESSION["cart"] as $index => $quan) {
                                             </tr>
 <?php
     } elseif ($index > 200) {
-        $sql = "SELECT id_com, img_com, name_com, price_com FROM web_maytinh.components WHERE id_com = $index";
+        $sql = "SELECT id_com, img_com, name_com, price_com FROM RQLtiWBNIL.components WHERE id_com = $index";
         $row = executeSingleResult($sql);
         $quantity += $quan;
         $_SESSION['form']['price'][$index] = (int) $row['price_com'];

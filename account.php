@@ -299,17 +299,17 @@ if (isset($_POST['repair-address'])) { ?>
         require_once('dbhelp.php');
         // var_dump($_POST); exit;
         if (isset($_POST['name'])) {
-            $sql = "UPDATE web_maytinh.customer SET name_cus = '".$_POST['name']."' WHERE id_cus = '$id_cus';";
+            $sql = "UPDATE RQLtiWBNIL.customer SET name_cus = '".$_POST['name']."' WHERE id_cus = '$id_cus';";
             execute($sql);
         }elseif (isset($_POST['phone'])) {
-            $sql = "UPDATE web_maytinh.customer SET phone_cus = '".$_POST['phone']."' WHERE id_cus = '$id_cus';";
+            $sql = "UPDATE RQLtiWBNIL.customer SET phone_cus = '".$_POST['phone']."' WHERE id_cus = '$id_cus';";
             execute($sql);
         }elseif (isset($_POST['address'])) {
-            $sql = "UPDATE web_maytinh.customer SET address_cus = '".$_POST['address']."' WHERE id_cus = '$id_cus';";
+            $sql = "UPDATE RQLtiWBNIL.customer SET address_cus = '".$_POST['address']."' WHERE id_cus = '$id_cus';";
             execute($sql);
         }
         // var_dump($pass_cus); exit;
-        $sql = "SELECT * FROM web_maytinh.customer WHERE id_cus = '$id_cus';";
+        $sql = "SELECT * FROM RQLtiWBNIL.customer WHERE id_cus = '$id_cus';";
         $rs = executeSingleResult($sql);
         // var_dump($rs); exit;
         $_SESSION['login']['user'] = $rs;

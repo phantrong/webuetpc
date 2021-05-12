@@ -11,7 +11,7 @@
         if($_GET['action'] == 'submit') {
             $user = $_POST['user'];
             $phone = $_POST['phone'];
-            $sql = "SELECT phone_cus FROM web_maytinh.customer WHERE user_cus = '$user'";
+            $sql = "SELECT phone_cus FROM RQLtiWBNIL.customer WHERE user_cus = '$user'";
             $rs = executeSingleResult($sql);
             if (empty($rs)) {
                 $error = "Tài Khoản không tồn tại!";
@@ -39,7 +39,7 @@
                 $pass_hash = password_hash($pass_cus, PASSWORD_BCRYPT);
                 $user_check = $_SESSION['pass'][0];
                 // var_dump($user_check); exit;
-                $sql = "UPDATE web_maytinh.customer SET pass_cus = '$pass_hash' WHERE user_cus = '$user_check';";
+                $sql = "UPDATE RQLtiWBNIL.customer SET pass_cus = '$pass_hash' WHERE user_cus = '$user_check';";
                 execute($sql);
                 $sucess = 3;
             }
@@ -49,7 +49,7 @@
         }elseif($_GET['action'] == 'pass') {
                 $user_check = $_SESSION['login']['user']['user_cus'];
                 $pass = $_POST['pass'];
-                $sql = "SELECT pass_cus FROM web_maytinh.customer WHERE user_cus = '$user_check'";
+                $sql = "SELECT pass_cus FROM RQLtiWBNIL.customer WHERE user_cus = '$user_check'";
                 $rs = executeSingleResult($sql);
                 // var_dump($rs); exit;
                 $pass_hash = $rs['pass_cus'];
@@ -68,7 +68,7 @@
                     $pass_cus = $_POST['pass_cus'];
                     $pass_hash = password_hash($pass_cus, PASSWORD_BCRYPT);
                     // var_dump($pass_cus); exit;
-                    $sql = "UPDATE web_maytinh.customer SET pass_cus = '$pass_hash' WHERE user_cus = '$user_check';";
+                    $sql = "UPDATE RQLtiWBNIL.customer SET pass_cus = '$pass_hash' WHERE user_cus = '$user_check';";
                     execute($sql);
                     $sucess = 3;  
                 }

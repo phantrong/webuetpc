@@ -9,7 +9,7 @@
             $user = $_POST['account'];
             $pass = $_POST['pass'];
             // $sql = "SELECT pass_cus FROM kDAbiPc3dp.customer WHERE user_cus = '$user'";
-            $sql = "SELECT pass FROM web_maytinh.admin WHERE account = '$user'";
+            $sql = "SELECT pass FROM RQLtiWBNIL.admin WHERE account = '$user'";
             $rs = executeSingleResult($sql);
             // var_dump($rs); exit;
             if (empty($rs)) {
@@ -37,7 +37,7 @@
 // var_dump(empty($error)); exit;
 if ($sucess) {
     // $sql = "SELECT * FROM kDAbiPc3dp.customer WHERE user_cus = '$user'";
-    $sql = "SELECT * FROM web_maytinh.admin WHERE account = '$user'";
+    $sql = "SELECT * FROM RQLtiWBNIL.admin WHERE account = '$user'";
     $rs = executeSingleResult($sql);
     $_SESSION['login']['admin'] = $rs;
     // $_SESSION['login']['url'] = '';

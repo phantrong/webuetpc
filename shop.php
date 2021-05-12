@@ -289,27 +289,27 @@ $action = (int) $_GET['action'];
 $sql ='';
 if ($action < 10 && $action > 0) {
     if($action == 1) {
-        $sql = 'SELECT * FROM web_maytinh.computer;';
+        $sql = 'SELECT * FROM RQLtiWBNIL.computer;';
         $list = executeResult($sql);
     }
     elseif($action == 2) {
-        $sql = "SELECT id_pc, img_pc, name_pc, price_pc, firm_pc  FROM web_maytinh.computer WHERE firm_pc = 'DELL';";
+        $sql = "SELECT id_pc, img_pc, name_pc, price_pc, firm_pc  FROM RQLtiWBNIL.computer WHERE firm_pc = 'DELL';";
         $list = executeResult($sql);
     }
     elseif($action == 3) {
-        $sql = "SELECT id_pc, img_pc, name_pc, price_pc, firm_pc FROM web_maytinh.computer WHERE firm_pc = 'ASUS';";
+        $sql = "SELECT id_pc, img_pc, name_pc, price_pc, firm_pc FROM RQLtiWBNIL.computer WHERE firm_pc = 'ASUS';";
         $list = executeResult($sql);
     }
     elseif($action == 4) {
-        $sql = "SELECT id_pc, img_pc, name_pc, price_pc, firm_pc FROM web_maytinh.computer WHERE firm_pc = 'ThinkPad';";
+        $sql = "SELECT id_pc, img_pc, name_pc, price_pc, firm_pc FROM RQLtiWBNIL.computer WHERE firm_pc = 'ThinkPad';";
         $list = executeResult($sql);
     }
     elseif($action == 5) {
-        $sql = "SELECT id_pc, img_pc, name_pc, price_pc, firm_pc FROM web_maytinh.computer WHERE firm_pc = 'HP';";
+        $sql = "SELECT id_pc, img_pc, name_pc, price_pc, firm_pc FROM RQLtiWBNIL.computer WHERE firm_pc = 'HP';";
         $list = executeResult($sql);
     }
     elseif($action == 6) {
-        $sql = "SELECT id_pc, img_pc, name_pc, price_pc, firm_pc FROM web_maytinh.computer WHERE firm_pc = 'Acer';";
+        $sql = "SELECT id_pc, img_pc, name_pc, price_pc, firm_pc FROM RQLtiWBNIL.computer WHERE firm_pc = 'Acer';";
         $list = executeResult($sql);
     }
         
@@ -359,27 +359,27 @@ if ($action < 10 && $action > 0) {
 }
 elseif ($action >= 10 && $action <20) {
     if($action == 10) {
-        $sql = 'SELECT id_com, img_com, name_com, price_com, firm_com FROM web_maytinh.components;';
+        $sql = 'SELECT id_com, img_com, name_com, price_com, firm_com FROM RQLtiWBNIL.components;';
         $list = executeResult($sql);
     }
     elseif($action == 11) {
-        $sql = "SELECT id_com, img_com, name_com, price_com, firm_com FROM web_maytinh.components WHERE kind_com LIKE 'CPU%';";
+        $sql = "SELECT id_com, img_com, name_com, price_com, firm_com FROM RQLtiWBNIL.components WHERE kind_com LIKE 'CPU%';";
         $list = executeResult($sql);
     }
     elseif($action == 12) {
-        $sql = "SELECT id_com, img_com, name_com, price_com, firm_com FROM web_maytinh.components WHERE kind_com = 'HDD';";
+        $sql = "SELECT id_com, img_com, name_com, price_com, firm_com FROM RQLtiWBNIL.components WHERE kind_com = 'HDD';";
         $list = executeResult($sql);
     }
     elseif($action == 13) {
-        $sql = "SELECT id_com, img_com, name_com, price_com, firm_com FROM web_maytinh.components WHERE kind_com = 'Mainboard';";
+        $sql = "SELECT id_com, img_com, name_com, price_com, firm_com FROM RQLtiWBNIL.components WHERE kind_com = 'Mainboard';";
         $list = executeResult($sql);
     }
     elseif($action == 14) {
-        $sql = "SELECT id_com, img_com, name_com, price_com, firm_com FROM web_maytinh.components WHERE kind_com = 'RAM';";
+        $sql = "SELECT id_com, img_com, name_com, price_com, firm_com FROM RQLtiWBNIL.components WHERE kind_com = 'RAM';";
         $list = executeResult($sql);
     }
     elseif($action == 15) {
-        $sql = "SELECT id_com, img_com, name_com, price_com, firm_com FROM web_maytinh.components WHERE kind_com = 'SSD';";
+        $sql = "SELECT id_com, img_com, name_com, price_com, firm_com FROM RQLtiWBNIL.components WHERE kind_com = 'SSD';";
         $list = executeResult($sql);
     }
         
@@ -429,19 +429,19 @@ elseif ($action >= 10 && $action <20) {
 }
 elseif ($action >= 20) {
     if($action == 20) {
-        $sql = 'SELECT id_acc, img_acc, name_acc, price_acc, firm_acc FROM web_maytinh.accessories;';
+        $sql = 'SELECT id_acc, img_acc, name_acc, price_acc, firm_acc FROM RQLtiWBNIL.accessories;';
         $list = executeResult($sql);
     }
     elseif($action == 21) {
-        $sql = "SELECT id_acc, img_acc, name_acc, price_acc, firm_acc FROM web_maytinh.accessories WHERE kind_acc = 'Tai Nghe';";
+        $sql = "SELECT id_acc, img_acc, name_acc, price_acc, firm_acc FROM RQLtiWBNIL.accessories WHERE kind_acc = 'Tai Nghe';";
         $list = executeResult($sql);
     }
     elseif($action == 22) {
-        $sql = "SELECT id_acc, img_acc, name_acc, price_acc, firm_acc FROM web_maytinh.accessories WHERE kind_acc = 'Bàn Phím';";
+        $sql = "SELECT id_acc, img_acc, name_acc, price_acc, firm_acc FROM RQLtiWBNIL.accessories WHERE kind_acc = 'Bàn Phím';";
         $list = executeResult($sql);
     }
     elseif($action == 23) {
-        $sql = "SELECT id_acc, img_acc, name_acc, price_acc, firm_acc FROM web_maytinh.accessories WHERE kind_acc = 'Chuột';";
+        $sql = "SELECT id_acc, img_acc, name_acc, price_acc, firm_acc FROM RQLtiWBNIL.accessories WHERE kind_acc = 'Chuột';";
         $list = executeResult($sql);
     }
         // var_dump($list); exit;
@@ -490,7 +490,7 @@ elseif ($action >= 20) {
 }
 else {
     // var_dump($name_search); exit;
-        $sql2 = "SELECT * FROM web_maytinh.computer WHERE name_pc LIKE '%$name_search%' or firm_pc LIKE '%$name_search%';";
+        $sql2 = "SELECT * FROM RQLtiWBNIL.computer WHERE name_pc LIKE '%$name_search%' or firm_pc LIKE '%$name_search%';";
         $list2 = executeResult($sql2);
             // var_dump($list2); exit;
             foreach($list2 as $a) {
@@ -535,7 +535,7 @@ else {
                            
     <?php
             }
-            $sql1 = "SELECT * FROM web_maytinh.components WHERE name_com LIKE '%$name_search%' or kind_com LIKE '%$name_search%' or firm_com LIKE '%$name_search%';";
+            $sql1 = "SELECT * FROM RQLtiWBNIL.components WHERE name_com LIKE '%$name_search%' or kind_com LIKE '%$name_search%' or firm_com LIKE '%$name_search%';";
             $list1 = executeResult($sql1);
                 // var_dump($list1); exit;
                 foreach($list1 as $a) {
@@ -580,7 +580,7 @@ else {
                                
         <?php
                 }
-    $sql3 = "SELECT * FROM web_maytinh.accessories WHERE name_acc LIKE '%$name_search%' or kind_acc LIKE '%$name_search%' or firm_acc LIKE '%$name_search%'";
+    $sql3 = "SELECT * FROM RQLtiWBNIL.accessories WHERE name_acc LIKE '%$name_search%' or kind_acc LIKE '%$name_search%' or firm_acc LIKE '%$name_search%'";
     $list3 = executeResult($sql3);
         // var_dump($list3); exit;
         foreach($list3 as $a) {

@@ -159,16 +159,16 @@ if(!empty($_GET)) {
                     <div class="single-sidebar">
                         <h2 class="sidebar-title">Sản Phẩm Liên Quan</h2>
 <?php
-        $sqlz = "SELECT count(*) as total FROM web_maytinh.comments where id_pro = $id_pro;";
+        $sqlz = "SELECT count(*) as total FROM RQLtiWBNIL.comments where id_pro = $id_pro;";
         $total = executeSingleResult($sqlz);
         $total_cmt = (int) $total['total'];
         // var_dump($total_cmt); exit;
         $sql2 = "";
         if($id_pro<101) {
-            $sql = "SELECT * FROM web_maytinh.computer WHERE id_pc = $id_pro;";
+            $sql = "SELECT * FROM RQLtiWBNIL.computer WHERE id_pc = $id_pro;";
             $pc = executeSingleResult($sql);
             $firm_pc = $pc['firm_pc'];
-            $sql2 = "SELECT id_pc, name_pc, price_pc, img_pc FROM web_maytinh.computer WHERE firm_pc = '$firm_pc' LIMIT 5;";
+            $sql2 = "SELECT id_pc, name_pc, price_pc, img_pc FROM RQLtiWBNIL.computer WHERE firm_pc = '$firm_pc' LIMIT 5;";
             $list = executeResult($sql2);
             foreach($list as $item) {
 ?>
@@ -227,11 +227,11 @@ if(!empty($_GET)) {
 <?php
         }
         elseif ($id_pro>100 && $id_pro < 200) {
-            $sql = "SELECT * FROM web_maytinh.accessories WHERE id_acc = $id_pro;";
+            $sql = "SELECT * FROM RQLtiWBNIL.accessories WHERE id_acc = $id_pro;";
             $pc = executeSingleResult($sql);
             // var_dump($pc); exit;
             $firm_pc = $pc['kind_acc'];
-            $sql2 = "SELECT id_acc, name_acc, price_acc, img_acc FROM web_maytinh.accessories WHERE kind_acc = '$firm_pc' LIMIT 5;";
+            $sql2 = "SELECT id_acc, name_acc, price_acc, img_acc FROM RQLtiWBNIL.accessories WHERE kind_acc = '$firm_pc' LIMIT 5;";
             $list = executeResult($sql2);
             // var_dump($lis); exit;
             foreach($list as $item) {
@@ -291,10 +291,10 @@ if(!empty($_GET)) {
 <?php
         }
         else{
-            $sql = "SELECT * FROM web_maytinh.components WHERE id_com = $id_pro;";
+            $sql = "SELECT * FROM RQLtiWBNIL.components WHERE id_com = $id_pro;";
             $pc = executeSingleResult($sql);
             $firm_pc = $pc['kind_com'];
-            $sql2 = "SELECT id_com, name_com, price_com, img_com FROM web_maytinh.components WHERE kind_com = '$firm_pc' LIMIT 5;";
+            $sql2 = "SELECT id_com, name_com, price_com, img_com FROM RQLtiWBNIL.components WHERE kind_com = '$firm_pc' LIMIT 5;";
             $list = executeResult($sql2);
             // var_dump($lis); exit;
             foreach($list as $item) {
@@ -364,7 +364,7 @@ if(!empty($_GET)) {
         if(isset($_POST['post_click'])) {
             if(!empty($_POST['content_cmt'])) {
                 // var_dump($_POST); exit;
-                $sql = "INSERT INTO web_maytinh.comments (id_cus, content_cmt, id_pro, time_cmt) VALUE ('$id_cus', '".$_POST['content_cmt']."', '$id_pro', NOW());";
+                $sql = "INSERT INTO RQLtiWBNIL.comments (id_cus, content_cmt, id_pro, time_cmt) VALUE ('$id_cus', '".$_POST['content_cmt']."', '$id_pro', NOW());";
                 execute($sql);
                 // unset($_POST['content_cmt']);
                 // unset($_POST['post_click']);
@@ -405,12 +405,12 @@ if(!empty($_GET)) {
             <div class="row">
                 <ul style="list-style-type: none; padding-inline-start: 0px;">
 <?php
-    $sqll = "SELECT id_cmt, id_cus, content_cmt, time_cmt, (SELECT count(*) FROM web_maytinh.replies where id_cmt = comments.id_cmt) as reps FROM web_maytinh.comments WHERE id_pro = $id_pro ORDER BY reps DESC, time_cmt DESC";
+    $sqll = "SELECT id_cmt, id_cus, content_cmt, time_cmt, (SELECT count(*) FROM RQLtiWBNIL.replies where id_cmt = comments.id_cmt) as reps FROM RQLtiWBNIL.comments WHERE id_pro = $id_pro ORDER BY reps DESC, time_cmt DESC";
     $list_cmt = executeResult($sqll);
     // var_dump($list_cmt); exit;
     foreach ($list_cmt as $cmt) { 
         $i = $cmt['id_cus'];
-        $sql3 = "SELECT user_cus FROM web_maytinh.customer WHERE id_cus = $i;";
+        $sql3 = "SELECT user_cus FROM RQLtiWBNIL.customer WHERE id_cus = $i;";
         $cus  = executeSingleResult($sql3);
         $user_cus_cmt = $cus['user_cus'];
 ?>
@@ -419,7 +419,7 @@ if(!empty($_GET)) {
 <?php
     if(isset($_POST['del_cmt'])) {
         $id_cmt_del = (int) $_POST['del_cmt'];
-        $sql = "DELETE FROM web_maytinh.comments WHERE id_cmt = $id_cmt_del";
+        $sql = "DELETE FROM RQLtiWBNIL.comments WHERE id_cmt = $id_cmt_del";
         // var_dump("ok"); exit;
         execute($sql);
         unset($_POST);
@@ -428,7 +428,7 @@ if(!empty($_GET)) {
     if(isset($_POST['save_cmt']) && !empty($_POST['content_cmt_repair'])) {
         $id_cmt_save = (int) $_POST['save_cmt'];
         $up_cmt = $_POST['content_cmt_repair'];
-        $sql = "UPDATE web_maytinh.comments SET content_cmt = '$up_cmt', time_cmt = NOW() WHERE id_cmt = $id_cmt_save";
+        $sql = "UPDATE RQLtiWBNIL.comments SET content_cmt = '$up_cmt', time_cmt = NOW() WHERE id_cmt = $id_cmt_save";
         execute($sql);
         unset($_POST);
         echo("<script>location.href = 'single-product.php?id_pro={$id_pro}';</script>");
@@ -483,7 +483,7 @@ if(isset($_POST['rep_click'])) {
     elseif(!empty($_POST['content_rep'])) {
         $id_cmt = (int)$_POST['rep_click'];
         // var_dump($_POST); exit;
-        $sql = "INSERT INTO web_maytinh.replies (id_cmt, content_rep, id_cus, time_rep) VALUE ('$id_cmt', '".$_POST['content_rep']."', $id_cus, NOW());";
+        $sql = "INSERT INTO RQLtiWBNIL.replies (id_cmt, content_rep, id_cus, time_rep) VALUE ('$id_cmt', '".$_POST['content_rep']."', $id_cus, NOW());";
         execute($sql);
         unset($_POST);
         echo("<script>location.href = 'single-product.php?id_pro={$id_pro}';</script>");
@@ -516,13 +516,13 @@ if(isset($_POST['rep_click'])) {
 <?php
     // var_dump($_POST); exit;
     $id_cmt = $cmt['id_cmt'];
-    $sql2 = "SELECT * FROM web_maytinh.replies WHERE id_cmt = $id_cmt ORDER BY time_rep DESC";
+    $sql2 = "SELECT * FROM RQLtiWBNIL.replies WHERE id_cmt = $id_cmt ORDER BY time_rep DESC";
     $list_rep = executeResult($sql2);
     // var_dump($list_rep); exit;
     if (!empty($list_rep)) {
     foreach ($list_rep as $rep) {
         $i = $rep['id_cus'];
-        $sql3 = "SELECT user_cus FROM web_maytinh.customer WHERE id_cus = $i;";
+        $sql3 = "SELECT user_cus FROM RQLtiWBNIL.customer WHERE id_cus = $i;";
         $cus  = executeSingleResult($sql3);
         $user_cus_rep = $cus['user_cus'];
         // var_dump($name_cus_rep); exit;
@@ -533,7 +533,7 @@ if(isset($_POST['rep_click'])) {
 <?php
     if(isset($_POST['del_rep'])) {
         $id_rep_del = (int) $_POST['del_rep'];
-        $sql = "DELETE FROM web_maytinh.replies WHERE id_rep = $id_rep_del";
+        $sql = "DELETE FROM RQLtiWBNIL.replies WHERE id_rep = $id_rep_del";
         execute($sql);
         unset($_POST);
         echo("<script>location.href = 'single-product.php?id_pro={$id_pro}';</script>");
@@ -541,7 +541,7 @@ if(isset($_POST['rep_click'])) {
     if(isset($_POST['save_rep']) && !empty($_POST['content_rep_repair'])) {
         $id_rep_save = (int) $_POST['save_rep'];
         $up_rep = $_POST['content_rep_repair'];
-        $sql = "UPDATE web_maytinh.replies SET content_rep = '$up_rep', time_rep = NOW() WHERE id_rep = $id_rep_save";
+        $sql = "UPDATE RQLtiWBNIL.replies SET content_rep = '$up_rep', time_rep = NOW() WHERE id_rep = $id_rep_save";
         execute($sql);
         unset($_POST);
         echo("<script>location.href = 'single-product.php?id_pro={$id_pro}';</script>");

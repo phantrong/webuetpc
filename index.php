@@ -217,12 +217,12 @@
 <?php
 require_once('dbhelp.php');
 // $sql1 = "SELECT max(id_pc) FROM kDAbiPc3dp.computer;";
-$sql1 = "SELECT max(id_pc) FROM web_maytinh.computer;";
+$sql1 = "SELECT max(id_pc) FROM RQLtiWBNIL.computer;";
 $row = executeSingleResult($sql1);
 $id_pc = (int)$row["max(id_pc)"];
 for($i=$id_pc; $i>=$id_pc-3; $i--) {
     // $sql = "SELECT name_pc, img_pc, price_pc FROM kDAbiPc3dp.computer WHERE id_pc = $i;";
-    $sql = "SELECT name_pc, img_pc, price_pc FROM web_maytinh.computer WHERE id_pc = $i;";
+    $sql = "SELECT name_pc, img_pc, price_pc FROM RQLtiWBNIL.computer WHERE id_pc = $i;";
     $pc = executeSingleResult($sql);
     // var_dump($pc);
 ?>
@@ -244,12 +244,12 @@ for($i=$id_pc; $i>=$id_pc-3; $i--) {
 <?php   
 }
 // $sql1 = "SELECT max(id_com) FROM kDAbiPc3dp.components;";
-$sql1 = "SELECT max(id_com) FROM web_maytinh.components;";
+$sql1 = "SELECT max(id_com) FROM RQLtiWBNIL.components;";
 $row = executeSingleResult($sql1);
 $id_pc = (int)$row["max(id_com)"];
 for($i=$id_pc; $i>=$id_pc-3; $i--) {
     // $sql = "SELECT name_com, img_com, price_com FROM kDAbiPc3dp.components WHERE id_com = $i;";
-    $sql = "SELECT name_com, img_com, price_com FROM web_maytinh.components WHERE id_com = $i;";
+    $sql = "SELECT name_com, img_com, price_com FROM RQLtiWBNIL.components WHERE id_com = $i;";
     $pc = executeSingleResult($sql);
     // var_dump($pc);
 ?>
@@ -272,12 +272,12 @@ for($i=$id_pc; $i>=$id_pc-3; $i--) {
 }
 require_once('dbhelp.php');
 // $sql1 = "SELECT max(id_acc) FROM kDAbiPc3dp.accessories;";
-$sql1 = "SELECT max(id_acc) FROM web_maytinh.accessories;";
+$sql1 = "SELECT max(id_acc) FROM RQLtiWBNIL.accessories;";
 $row = executeSingleResult($sql1);
 $id_pc = (int)$row["max(id_acc)"];
 for($i=$id_pc; $i>=$id_pc-3; $i--) {
     // $sql = "SELECT name_acc, img_acc, price_acc FROM kDAbiPc3dp.accessories WHERE id_acc = $i;";
-    $sql = "SELECT name_acc, img_acc, price_acc FROM web_maytinh.accessories WHERE id_acc = $i;";
+    $sql = "SELECT name_acc, img_acc, price_acc FROM RQLtiWBNIL.accessories WHERE id_acc = $i;";
     $pc = executeSingleResult($sql);
     // var_dump($pc);
 ?>
@@ -338,12 +338,12 @@ for($i=$id_pc; $i>=$id_pc-3; $i--) {
 <?php
 require_once('dbhelp.php');
 // $sql1 = "SELECT max(id_pc) FROM kDAbiPc3dp.computer;";
-$sql1 = "SELECT max(id_pc) FROM web_maytinh.computer;";
+$sql1 = "SELECT max(id_pc) FROM RQLtiWBNIL.computer;";
 $row = executeSingleResult($sql1);
 $id_pc = (int)$row["max(id_pc)"];
 for($i=$id_pc; $i>=$id_pc-30; $i-=15) {
     // $sql = "SELECT name_pc, img_pc, price_pc FROM kDAbiPc3dp.computer WHERE id_pc = $i;";
-    $sql = "SELECT name_pc, img_pc, price_pc FROM web_maytinh.computer WHERE id_pc = $i;";
+    $sql = "SELECT name_pc, img_pc, price_pc FROM RQLtiWBNIL.computer WHERE id_pc = $i;";
     $pc = executeSingleResult($sql);
     // var_dump($pc);
 ?>
@@ -373,12 +373,12 @@ for($i=$id_pc; $i>=$id_pc-30; $i-=15) {
 <?php
 require_once('dbhelp.php');
 // $sql1 = "SELECT max(id_com) FROM kDAbiPc3dp.components;";
-$sql1 = "SELECT max(id_com) FROM web_maytinh.components;";
+$sql1 = "SELECT max(id_com) FROM RQLtiWBNIL.components;";
 $row = executeSingleResult($sql1);
 $id_pc = (int)$row["max(id_com)"];
 for($i=$id_pc; $i>=$id_pc-30; $i-=15) {
     // $sql = "SELECT name_com, img_com, price_com FROM kDAbiPc3dp.components WHERE id_com = $i;";
-    $sql = "SELECT name_com, img_com, price_com FROM web_maytinh.components WHERE id_com = $i;";
+    $sql = "SELECT name_com, img_com, price_com FROM RQLtiWBNIL.components WHERE id_com = $i;";
     $pc = executeSingleResult($sql);
     // var_dump($pc);
 ?>
@@ -408,12 +408,12 @@ for($i=$id_pc; $i>=$id_pc-30; $i-=15) {
 <?php   
 require_once('dbhelp.php');
 // $sql1 = "SELECT max(id_acc) FROM kDAbiPc3dp.accessories;";
-$sql1 = "SELECT max(id_acc) FROM web_maytinh.accessories;";
+$sql1 = "SELECT max(id_acc) FROM RQLtiWBNIL.accessories;";
 $row = executeSingleResult($sql1);
 $id_pc = (int)$row["max(id_acc)"];
 for($i=$id_pc; $i>=$id_pc-30; $i-=15) {
     // $sql = "SELECT name_acc, img_acc, price_acc FROM kDAbiPc3dp.accessories WHERE id_acc = $i;";
-    $sql = "SELECT name_acc, img_acc, price_acc FROM web_maytinh.accessories WHERE id_acc = $i;";
+    $sql = "SELECT name_acc, img_acc, price_acc FROM RQLtiWBNIL.accessories WHERE id_acc = $i;";
     $pc = executeSingleResult($sql);
     // var_dump($pc);
 ?>
